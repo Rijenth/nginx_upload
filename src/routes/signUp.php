@@ -1,43 +1,29 @@
 <?php
-
-$name = filter_input(INPUT_POST, 'username');
-$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-$password = filter_input(INPUT_POST, 'password');
-$pwdcheck = filter_input(INPUT_POST, 'passwordCheck');
+require "../functions/user.inc.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  require_once "db_connect.inc.php";
-  require "user.inc.php";
-    
+  $name = filter_input(INPUT_POST, 'username');
+  $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+  $password = filter_input(INPUT_POST, 'password');
+  $pwdcheck = filter_input(INPUT_POST, 'passwordCheck');
+  require_once "../functions/db_connect.inc.php";
+
   if (EmptyInputSignUp($name, $email, $password, $pwdcheck) !== false) {
-      header("location: ../register.html?error=emptyinput");
-      exit();
+    echo "<script>alert('Empty Input')</script>";
+  } elseif (InvalidUsername($name) !== false) {
+    echo "<script>alert('Invalid Username')</script>";
+  } elseif (pwdMatch($password, $pwdcheck) !== false) {
+    echo "<script>alert('Password does not match')</script>";
+  } elseif (UsernameExist($name, $email) !== false) {
+    echo "<script>alert('Username or Email already exist')</script>";
+  } else {
+    createUser($name, $email, $password);
+
+    header("location: ../routes/login.php");
+
+    exit();
   }
-
-  if (InvalidUsername($name) !== false) {
-      header("location: ../register.html?error=InvalidUsername");
-      exit();
-  }
-
-  if (pwdMatch($password, $pwdcheck) !== false) {
-      header("location: ../register.html?error=passwordAreDifferent");
-      exit();
-  }
-
-  if (UsernameExist($name, $email) !== false) {
-      header("location: ../register.html?error=usernameTaken");
-      exit();
-  } 
- 
-
-  createUser($name, $email, $password);
-
-  header("location: ../routes/login.php");
-  exit();
-} else {
-  header("location: ../routes/signUp.php");
-  exit();
-}
+};
 
 ?>
 
@@ -53,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <body>
     <a href="../index.php" id="goback"> Go back </a>
     <!-- SignUp Form -->
-    <form method="post">
+    <form action="#" method="POST">
       <input type="text" name="username" placeholder="Username" />
       <input type="email" name="email" placeholder="Email" />
       <input type="password" name="password" placeholder="Password" />
