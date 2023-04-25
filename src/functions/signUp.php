@@ -5,7 +5,7 @@ if (isset($_POST['submit'])) {
     $name = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $pwdcheck = $_POST['pwdcheck'];
+    $pwdcheck = $_POST['passwordCheck'];
 
     // Management des erreurs
 
@@ -33,8 +33,8 @@ if (isset($_POST['submit'])) {
     }
 
     createUser($name, $email, $password);
-    header("location: ../login.html");
+    header("location: ../routes/login.html");
 } else {
-    header("location: ../signUP.html");
+    header("location: ../routes/signUp.html");
     exit();
 }
