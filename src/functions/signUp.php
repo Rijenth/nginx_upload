@@ -1,7 +1,5 @@
 <?php
 // Check que l'utilisateur est accès à cet page après avoir tenter de se créer un compte
-echo "test";
-
 if (isset($_POST['submit'])) {
     var_dump($_POST);
     die;
@@ -39,6 +37,6 @@ if (isset($_POST['submit'])) {
     createUser($name, $email, $password);
     header("location: ../routes/login.html");
 } else {
-    header("location: ../routes/signUp.html");
+    header("location: ../routes/signUp.php");
     exit();
 }
