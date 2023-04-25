@@ -4,7 +4,7 @@
 # We need to push the content of the src folder to var/www/html
 # We need to push the content of the assets folder to var/www/html/assets
 
-name: Deploy To azure
+name: Deploy to azure nginx
 on:
   push:
     branches: [dev]
@@ -13,6 +13,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Reset Permissions before deployment
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            sudo chmod -R 755 /var/www/html
+            sudo chown -R username:username /var/www/html
+            sudo setfacl -R -m u:www-data:rwx /var/www/html
+
       - uses: actions/checkout@v2
       - name: Deploy source-code
         uses: appleboy/scp-action@master
@@ -22,5 +34,17 @@ jobs:
           PORT: 22
           KEY: ${{ secrets.SSH_KEY }}
         with:
-          source: "/src"
+          source: "src/*"
           target: "/var/www/html"
+
+      - name: Reset Permissions after deployment
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            sudo chmod -R 755 /var/www/html
+            sudo chown -R www-data:www-data /var/www/html
+            sudo setfacl -R -m u:username:rwx /path/in/your/serve
