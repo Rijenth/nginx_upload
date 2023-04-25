@@ -11,7 +11,8 @@
     <main id="index">
       <h1>Hello there</h1>
       <div class="links">
-        <a href="./routes/login.html">Login</a>
+        <a href="./routes/login.php">Login</a>
+
         <a href="./routes/signUp.php">SignUp</a>
       </div>
     </main>

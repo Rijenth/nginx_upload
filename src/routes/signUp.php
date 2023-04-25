@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       header("location: ../register.html?error=emptyinput");
       exit();
   }
-  
+
   if (InvalidUsername($name) !== false) {
       header("location: ../register.html?error=InvalidUsername");
       exit();
@@ -32,13 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   createUser($name, $email, $password);
 
-  header("location: ../routes/login.html");
+  header("location: ../routes/login.php");
+  exit();
 } else {
   header("location: ../routes/signUp.php");
   exit();
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../assets/styles/form.css" />
   </head>
   <body>
-    <a href="../index.html" id="goback"> Go back </a>
+    <a href="../index.php" id="goback"> Go back </a>
     <!-- SignUp Form -->
     <form method="post">
       <input type="text" name="username" placeholder="Username" />

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/styles/form.css" />
   </head>
   <body>
-    <a href="../index.html" id="goback"> Go back </a>
+    <a href="../index.php" id="goback"> Go back </a>
     <!-- Login Form -->
     <form action="../functions/login.php" method="post">
       <input type="text" name="username" placeholder="Username" />

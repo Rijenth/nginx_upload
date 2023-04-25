@@ -21,10 +21,6 @@ if (isset($_POST['submit'])) {
         header("location: ../register.html?error=InvalidUsername");
         exit();
     }
-    if (InvalidEmail($email) !== false) {
-        header("location: ../register.html?error=invalidEmail");
-        exit();
-    }
     if (pwdMatch($password, $pwdcheck) !== false) {
         header("location: ../register.html?error=passwordAreDifferent");
         exit();
@@ -35,7 +31,7 @@ if (isset($_POST['submit'])) {
     }
 
     createUser($name, $email, $password);
-    header("location: ../routes/login.html");
+    header("location: ../routes/login.php");
 } else {
     header("location: ../routes/signUp.php");
     exit();
