@@ -24,6 +24,7 @@ jobs:
             sudo chmod -R 755 /var/www/html
             sudo chown -R www-data:www-data /var/www/html
             sudo setfacl -R -m u:www-data:rwx /var/www/html
+            Sudo touch /home/fichier
 
       - uses: actions/checkout@v2
       - name: Deploy source-code
