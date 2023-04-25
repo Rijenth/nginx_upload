@@ -1,27 +1,28 @@
 <?php
 require "../functions/user.inc.php";
+require_once "../functions/db_connect.inc.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $name = filter_input(INPUT_POST, 'username');
   $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
   $password = filter_input(INPUT_POST, 'password');
   $pwdcheck = filter_input(INPUT_POST, 'passwordCheck');
-  require_once "../functions/db_connect.inc.php";
 
   if (EmptyInputSignUp($name, $email, $password, $pwdcheck) !== false) {
     echo "<script>alert('Empty Input')</script>";
   } elseif (InvalidUsername($name) !== false) {
     echo "<script>alert('Invalid Username')</script>";
-  } elseif (pwdMatch($password, $pwdcheck) !== false) {
+  } elseif (pwdMatch($password, $pwdcheck) === false) {
     echo "<script>alert('Password does not match')</script>";
   } elseif (UsernameExist($name, $email) !== false) {
     echo "<script>alert('Username or Email already exist')</script>";
   } else {
-    createUser($name, $email, $password);
-
-    header("location: ../routes/login.php");
-
-    exit();
+    if(createUser($name, $email, $password) !== null) {
+	echo "<script>alert('Une erreur est survenue lors d\'une requête')</script>";
+    } else {
+    	header("location: ../routes/login.php");
+    	exit();
+    }
   }
 };
 
@@ -40,10 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="../index.php" id="goback"> Go back </a>
     <!-- SignUp Form -->
     <form action="#" method="POST">
-      <input type="text" name="username" placeholder="Username" />
-      <input type="email" name="email" placeholder="Email" />
-      <input type="password" name="password" placeholder="Password" />
-      <input type="password" name="passwordCheck" placeholder="Confirm Password" />
+      <input type="text" name="username" placeholder="Username" value="test" />
+      <input type="email" name="email" placeholder="Email" value="test@mail.fr" />
+      <input type="password" name="password" placeholder="Password" value="test" />
+      <input type="password" name="passwordCheck" placeholder="Confirm Password" value="test" />
       <button type="submit" name="submit">SignUp</button>
     </form>
   </body>

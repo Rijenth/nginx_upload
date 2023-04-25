@@ -10,13 +10,17 @@ function EmptyInputSignUp($name, $email, $password, $pwdcheck)
 // Vérifie que l'username n'est pas de charactère spéciaux
 function InvalidUsername($name)
 {
-    return (preg_match("/^*[a-zA-Z0-9]$/", $name));
+    if (!preg_match("/^[a-zA-Z0-9]*$/", $name)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // Vérifie que les mdp soit correspondant
 function pwdMatch($password, $pwdcheck)
 {
-    return $password == $pwdcheck;
+    return $password === $pwdcheck;
 }
 
 function EmptyInputLogin($username, $pwd)
@@ -27,9 +31,24 @@ function EmptyInputLogin($username, $pwd)
 // Vérifie que l'username n'est pas deja utiliser
 function UserNameExist($name, $email)
 {
-    $db = new DB();
-    $request = $db->connectDb()->prepare("SELECT * FROM user WHERE username = ? OR email = ?;");
-    $request->execute([$name, $email]);
+   $db = new DB();
+
+    try {
+    $dbh = new PDO('mysql:host=localhost;dbname=db', 'root', '');
+    } catch (PDOException $e) {
+    echo "Erreur de connexion à la base de données : " . $e->getMessage();
+    exit();
+    }
+
+  
+
+    $request = $dbh->prepare("SELECT * FROM user WHERE name = :name OR email = :mail;");
+
+    $request->execute([
+	"name" => $name,
+	"mail" => $email
+    ]);
+
     $resultat = $request->fetch(PDO::FETCH_ASSOC);
 
     if ($resultat) {
@@ -42,10 +61,28 @@ function UserNameExist($name, $email)
 function createUser($name, $email, $password)
 {
     $db = new DB();
-    $request = $db->connectDb()->prepare("INSERT INTO user (email, password, username) VALUES (?,?,?);");
+    
+    try {
+    $dbh = new PDO('mysql:host=localhost;dbname=db', 'root', '');
+    } catch (PDOException $e) {
+    echo "Erreur de connexion à la base de données : " . $e->getMessage();
+    exit();
+    }
+
+    $request = $dbh->prepare("INSERT INTO user (name, email, password) VALUES (:name, :email, :pass);");
     $pass = password_hash($password, PASSWORD_DEFAULT);
-    $request->execute([$email, $pass, $name]);
+    
+	if($request->execute([
+	"name" => $name, 
+	"email" => $email, 
+	"pass" => $pass
+    ])) {
+	return null;
+    } else {
+    	return false;
+    }
 }
+
 function loginUser($uid, $pwd)
 {
     $uidExist = UserNameExist($uid, $uid);
