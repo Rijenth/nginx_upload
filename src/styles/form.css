@@ -1,0 +1,63 @@
+@import "./main.css";
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 100vw;
+}
+
+form input {
+  width: 15%;
+  height: 3vh;
+  margin: 1rem;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+}
+
+form input:focus {
+  border-bottom: 1px solid #fff;
+}
+
+form button {
+  width: 10%;
+  height: 3vh;
+  margin: 1rem;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+#goback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
