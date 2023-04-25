@@ -1,6 +1,10 @@
 <?php
 // Check que l'utilisateur est accès à cet page après avoir tenter de se créer un compte
+echo "test";
+
 if (isset($_POST['submit'])) {
+    var_dump($_POST);
+    die;
 
     $name = $_POST['username'];
     $email = $_POST['email'];
