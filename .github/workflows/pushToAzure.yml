@@ -22,7 +22,7 @@ jobs:
           port: 22
           script: |
             sudo chmod -R 755 /var/www/html
-            sudo chown -R ${{ secrets.SSH_USERNAME }}:${{ secrets.SSH_PASSWORD }} /var/www/html
+            sudo chown -R www-data:www-data /var/www/html
             sudo setfacl -R -m u:www-data:rwx /var/www/html
 
       - uses: actions/checkout@v2
