@@ -57,7 +57,7 @@ function EmptyInputLogin($username, $pwd)
 function UserNameExist($name, $email)
 {
     $db = new DB();
-    $request = $db->connectDb()->prepare("SELECT * FROM user WHERE user_username = ? OR user_email = ?;");
+    $request = $db->connectDb()->prepare("SELECT * FROM user WHERE username = ? OR email = ?;");
     $request->execute([$name, $email]);
     $resultat = $request->fetch(PDO::FETCH_ASSOC);
 
@@ -71,7 +71,7 @@ function UserNameExist($name, $email)
 function createUser($name, $email, $password)
 {
     $db = new DB();
-    $request = $db->connectDb()->prepare("INSERT INTO user (user_email, user_password, user_username) VALUES (?,?,?);");
+    $request = $db->connectDb()->prepare("INSERT INTO user (email, password, username) VALUES (?,?,?);");
     $pass = password_hash($password, PASSWORD_DEFAULT);
     $request->execute([$email, $pass, $name]);
 }
@@ -83,7 +83,9 @@ function loginUser($uid, $pwd)
         header("location: ../login.php?error=wrongLogin");
         exit();
     }
+
     $pwdHashed = $uidExist['password'];
+
     $checkPass = password_verify($pwd, $pwdHashed);
     
 
