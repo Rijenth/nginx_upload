@@ -3,7 +3,7 @@ class DB {
     private $host = 'localhost';
     private $user = 'root';
     private $password = '';
-    private $database = 'whatsupp';
+    private $database = 'db_project';
     private $db;
     
     public function connectDb()

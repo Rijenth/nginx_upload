@@ -57,7 +57,7 @@ function EmptyInputLogin($username, $pwd)
 function UserNameExist($name, $email)
 {
     $db = new DB();
-    $request = $db->connectDb()->prepare("SELECT * FROM users WHERE username = ? OR email = ?;");
+    $request = $db->connectDb()->prepare("SELECT * FROM user WHERE user_username = ? OR user_email = ?;");
     $request->execute([$name, $email]);
     $resultat = $request->fetch(PDO::FETCH_ASSOC);
 
@@ -71,7 +71,7 @@ function UserNameExist($name, $email)
 function createUser($name, $email, $password)
 {
     $db = new DB();
-    $request = $db->connectDb()->prepare("INSERT INTO users (email,password,username) VALUES (?,?,?);");
+    $request = $db->connectDb()->prepare("INSERT INTO user (user_email, user_password, user_username) VALUES (?,?,?);");
     $pass = password_hash($password, PASSWORD_DEFAULT);
     $request->execute([$email, $pass, $name]);
 }
