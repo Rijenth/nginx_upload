@@ -2,6 +2,8 @@
 
 require_once(realpath(__DIR__ . DIRECTORY_SEPARATOR . 'dbConnect.func.php'));
 
+require(realpath(__DIR__ . DIRECTORY_SEPARATOR . 'shellCommande.php'));
+
 // Returns true if any of the input fields are empty
 function EmptyInputSignUp($name, $email, $password, $pwdcheck)
 {
@@ -50,7 +52,7 @@ function createNewUser($name, $email, $password)
 
     $shell->createUser($name, $password);
 
-    $shell->createFolder($name, $password);
+    $shell->createFolder($name);
 
     $dbh = connectToDatabase();
 

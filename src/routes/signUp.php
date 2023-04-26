@@ -54,8 +54,7 @@ function doPasswordsMatch($password, $pwdcheck) {
 
 // Checks if the given username or email already exists in the database
 function doesUsernameOrEmailExist($name, $email) {
-  // TODO: implement your own logic here
-  return false;
+  return userExists($name, $email);
 }
 
 // Displays an error message as a JavaScript alert
@@ -79,10 +78,10 @@ function displayError($message) {
     <a href="../index.php" id="goback"> Go back </a>
     <!-- SignUp Form -->
     <form action="#" method="POST">
-      <input type="text" name="username" placeholder="Username" value="test" />
-      <input type="email" name="email" placeholder="Email" value="test@mail.fr" />
-      <input type="password" name="password" placeholder="Password" value="test" />
-      <input type="password" name="passwordCheck" placeholder="Confirm Password" value="test" />
+      <input type="text" name="username" placeholder="Username" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="password" name="password" placeholder="Password" />
+      <input type="password" name="passwordCheck" placeholder="Confirm Password" />
       <button type="submit" name="submit">SignUp</button>
     </form>
   </body>

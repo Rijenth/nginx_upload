@@ -18,12 +18,12 @@ class shellCommande
         Donner à l'utilisateur la propriété de son dossier
 
     */
-    public function createFolder($username, $foldername) {
-        shell_exec(sprintf("sudo mkdir /home/%s/%s", escapeshellarg($username), escapeshellarg($foldername)));
+    public function createFolder($username) {
+        shell_exec(sprintf("sudo mkdir /home/%s", escapeshellarg($username)));
 
-        shell_exec(sprintf("cd /home/%s/%s && sudo mkdir backups && sudo mkdir sites && cd ../", escapeshellarg($username), escapeshellarg($foldername)));
+        shell_exec(sprintf("cd /home/%s && sudo mkdir backups && sudo mkdir sites && cd ../", escapeshellarg($username)));
 
-        shell_exec(sprintf("sudo chown -R %s:%s /home/%s/%s", escapeshellarg($username), escapeshellarg($username), escapeshellarg($username), escapeshellarg($foldername)));
+        shell_exec(sprintf("sudo chown -R %s:%s /home/%s", escapeshellarg($username), escapeshellarg($username), escapeshellarg($username)));
     }
 
     /*
