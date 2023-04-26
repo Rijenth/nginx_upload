@@ -14,6 +14,13 @@
         <p class="user-email">{{user.email}}</p>
       </aside>
       <div id="files-n-folder">
+        <button id="uploadFile">
+          <img src="../../assets/img/upload.svg" alt="file" />
+        </button>
+        <button id="createFolder">
+          <img src="../../assets/img/createFolder.svg" alt="folder" />
+        </button>
+
         <div class="folder">
           <img src="../../assets/img/folder.svg" alt="folder" />
           <p>Folder 1</p>

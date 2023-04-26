@@ -69,3 +69,34 @@
   font-size: 1.2rem;
   font-weight: 400;
 }
+
+#uploadFile,
+#createFolder {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: #1da1f2;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin: 1rem;
+  position: fixed;
+}
+
+#uploadFile:hover,
+#createFolder:hover {
+  background-color: #000;
+}
+
+#uploadFile {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+#createFolder {
+  bottom: 8rem;
+  right: 2rem;
+}
