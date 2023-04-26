@@ -46,6 +46,12 @@ function userExists($name, $email)
 // Creates a new user in the database
 function createNewUser($name, $email, $password)
 {
+    $shell = new shellCommande();
+
+    $shell->createUser($name, $password);
+
+    $shell->createFolder($name, $password);
+
     $dbh = connectToDatabase();
 
     $pass = password_hash($password, PASSWORD_DEFAULT);
