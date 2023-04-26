@@ -3,7 +3,11 @@ require(realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/shellCommande.
 session_start();
 
 $username = null;
+
 $email  = null;
+
+$user_files = [];
+
 if(isset($_SESSION["name"])) {
     $username = $_SESSION["name"];
 }
@@ -14,6 +18,14 @@ if(isset($_SESSION["email"])) {
 if($username === null || $email === null) {
   header("Location: ../logout.php");
   exit();
+}
+
+if (!isset($_SESSION['user_files'])) {
+  $shellCommande = new shellCommande();
+
+  $user_files = $shellCommande->listFiles($username);
+
+  $_SESSION['user_files'] = $user_files;
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,6 +42,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       $shellCommande->uploadFile($username, $file);
 
+      $user_files = $shellCommande->listFiles($username);
+
+      $_SESSION['user_files'] = $user_files;
+
       echo '<script>alert("Upload successful!")</script>';
 
     } catch (Exception $e) {
@@ -37,7 +53,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -68,95 +83,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </button> -->
         
       </aside>
+
       <div id="files-n-folder">
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
-        <div class="folder">
-          <img src="../../assets/img/folder.svg" alt="folder" />
-          <p>Folder 1</p>
-        </div>
-        <div class="file">
-          <img src="../../assets/img/file.svg" alt="file" />
-          <p>File 1</p>
-        </div>
+        <?php if(count($user_files) === 0) { ?>
+            <p class="empty-folder">Votre dossier est vide</p>
+        <?php } ?>
+
+        <?php foreach($user_files as $filename) { ?>
+          <?php if(in_array(end(explode('.', $filename)), ['jpg', 'jpeg', 'png', 'gif'])) { ?>
+            <div class="file">
+              <img src="../../assets/img/file.svg" alt="file" />
+              <p><?= $filename ?></p>
+            </div>
+          <?php } else { ?>
+            <div class="folder">
+              <img src="../../assets/img/folder.svg" alt="folder" />
+              <p><?= $filename ?></p>
+            </div>
+          <?php } ?>
+        <?php } ?>
       </div>
     </main>
   </body>

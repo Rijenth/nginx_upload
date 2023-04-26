@@ -94,9 +94,14 @@ class shellCommande
     /*
         Afficher le contenu du dossier spécifié dans l'espace de stockage de l'utilisateur
     */
-    public function listFiles($username, $path) {
-        $output = shell_exec(sprintf("ls /home/%s/%s", escapeshellarg($username), escapeshellarg($path)));
-        return explode("\n", trim($output));
-    }
+    public function listFiles($username): array 
+    {
+        $output = shell_exec(sprintf("ls /home/%s/upload", escapeshellarg($username)));
 
+        $files = explode("\n", trim($output));
+
+        $files = array_filter($files);
+
+        return $files;
+    }
 }
