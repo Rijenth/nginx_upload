@@ -25,7 +25,7 @@ if(isset($_SESSION["email"])) {
       <aside id="user-data">
         <h1 class="user-welcome">Bonjour <?= $username ?></h1>
         <p class="user-email"><?= $email ?></p>
-        <a href="./dashboard/logout.php">Deconnexion</a>  
+        <a href="../logout.php">Deconnexion</a>  
       </aside>
       <div id="files-n-folder">
         <button id="uploadFile">
