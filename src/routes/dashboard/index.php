@@ -1,3 +1,16 @@
+<?php 
+session_start();
+$username = null;
+$email  = null;
+if(isset($_SESSION["name"])) {
+    $username = $_SESSION["name"];
+}
+
+if(isset($_SESSION["email"])) {
+  $email = $_SESSION["email"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,8 +23,8 @@
   <body>
     <main id="dashboard">
       <aside id="user-data">
-        <h1 class="user-welcome">Bonjour {{user.username}}</h1>
-        <p class="user-email">{{user.email}}</p>
+        <h1 class="user-welcome">Bonjour <?= $username ?></h1>
+        <p class="user-email"><?= $email ?></p>
       </aside>
       <div id="files-n-folder">
         <button id="uploadFile">

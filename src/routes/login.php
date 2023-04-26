@@ -1,3 +1,16 @@
+<?php
+  require "../functions/user.func.php";
+  require_once "../functions/dbConnect.func.php";
+
+  if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = filter_input(INPUT_POST, 'username');
+    $password = filter_input(INPUT_POST, 'password');
+
+    login($username, $password);
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +23,7 @@
   <body>
     <a href="../index.php" id="goback"> Go back </a>
     <!-- Login Form -->
-    <form action="../functions/login.php" method="post">
+    <form action="#" method="post">
       <input type="text" name="username" placeholder="Username" />
       <input type="password" name="password" placeholder="Password" />
       <button type="submit" name="submit">Login</button>

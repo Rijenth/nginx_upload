@@ -64,31 +64,35 @@ function login($username, $password)
 {
     $dbh = connectToDatabase();
 
-    $request = $dbh->prepare("SELECT * FROM user WHERE name = :name OR email = :email;");
+    $request = $dbh->prepare("SELECT * FROM user WHERE name = :name;");
     $request->execute([
-        "name" => $username,
-        "email" => $username
+        "name" => $username
     ]);
     $result = $request->fetch(PDO::FETCH_ASSOC);
 
     if (!$result) {
-        header("location: ../login.php?error=wrongLogin");
-        exit();
+        // Si l'utilisateur n'existe pas, affiche un message d'erreur
+        echo "Nom d'utilisateur ou mot de passe incorrect.";
+        return false;
     }
 
     $pwdHashed = $result['password'];
     $checkPass = password_verify($password, $pwdHashed);
 
-    if (!$checkPass) {
-        header("location: ../login.php?error=wrongLogin");
+    if($checkPass) {
+        session_start();
+        $_SESSION["uid"] = $result['id'];
+        $_SESSION["name"] = $result['name'];
+        $_SESSION["email"] = $result['email'];
+
+        header("location: ../routes/dashboard/index.php");
         exit();
+    } else {
+        // Si le mot de passe est incorrect, affiche un message d'erreur
+        echo "Nom d'utilisateur ou mot de passe incorrect.";
+        return false;
     }
 
-    session_start();
-    $_SESSION["userid"] = $result['id'];
-    $_SESSION["useruid"] = $result['name'];
-    header("location: ../index.php");
-    exit();
 }
 
 // Connects to the database
