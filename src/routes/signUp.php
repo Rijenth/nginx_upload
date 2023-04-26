@@ -1,6 +1,6 @@
 <?php
 require "../functions/user.func.php";
-require_once "../functions/db_connect.func.php";
+require_once "../functions/dbConnect.func.php";
 
 // Check if the form was submitted via POST method
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     displayError('Username or Email already exists');
   } else {
     // Try to create a new user in the database
-    $result = createUser($name, $email, $password);
+    $result = createNewUser($name, $email, $password);
     if ($result === null) {
       // Error occurred during database operation
       displayError('An error occurred during a database query');

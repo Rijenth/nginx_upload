@@ -26,22 +26,31 @@ function EmptyInputLogin($username, $pwd)
 }
 
 // Returns true if the user exists in the database
-function userExists($name, $email, $dbh)
+function userExists($name, $email)
 {
+    $dbh = connectToDatabase();
+
     $request = $dbh->prepare("SELECT * FROM user WHERE name = :name OR email = :email;");
+
     $request->execute([
         "name" => $name,
         "email" => $email
     ]);
+
     $result = $request->fetch(PDO::FETCH_ASSOC);
+    
     return $result ? true : false;
 }
 
 // Creates a new user in the database
-function createNewUser($name, $email, $password, $dbh)
+function createNewUser($name, $email, $password)
 {
+    $dbh = connectToDatabase();
+
     $pass = password_hash($password, PASSWORD_DEFAULT);
+
     $request = $dbh->prepare("INSERT INTO user (name, email, password) VALUES (:name, :email, :pass);");
+
     return $request->execute([
         "name" => $name, 
         "email" => $email, 
@@ -50,8 +59,10 @@ function createNewUser($name, $email, $password, $dbh)
 }
 
 // Logs in the user and creates a session
-function login($username, $password, $dbh)
+function login($username, $password)
 {
+    $dbh = connectToDatabase();
+
     $request = $dbh->prepare("SELECT * FROM user WHERE name = :name OR email = :email;");
     $request->execute([
         "name" => $username,
