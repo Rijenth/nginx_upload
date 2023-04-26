@@ -9,6 +9,10 @@ if(isset($_SESSION["name"])) {
 if(isset($_SESSION["email"])) {
   $email = $_SESSION["email"];
 }
+if($username === null || $email === null) {
+  header("Location: ../logout.php");
+  exit();
+}
 ?>
 
 <!DOCTYPE html>
