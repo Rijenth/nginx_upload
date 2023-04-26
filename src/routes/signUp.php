@@ -1,30 +1,66 @@
 <?php
-require "../functions/user.inc.php";
-require_once "../functions/db_connect.inc.php";
+require "../functions/user.func.php";
+require_once "../functions/db_connect.func.php";
 
+// Check if the form was submitted via POST method
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  // Get user input data and filter/sanitize it
   $name = filter_input(INPUT_POST, 'username');
   $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
   $password = filter_input(INPUT_POST, 'password');
   $pwdcheck = filter_input(INPUT_POST, 'passwordCheck');
 
-  if (EmptyInputSignUp($name, $email, $password, $pwdcheck) !== false) {
-    echo "<script>alert('Empty Input')</script>";
-  } elseif (InvalidUsername($name) !== false) {
-    echo "<script>alert('Invalid Username')</script>";
-  } elseif (pwdMatch($password, $pwdcheck) === false) {
-    echo "<script>alert('Password does not match')</script>";
-  } elseif (UsernameExist($name, $email) !== false) {
-    echo "<script>alert('Username or Email already exist')</script>";
+  // Check for any input errors
+  if (hasEmptyInput($name, $email, $password, $pwdcheck)) {
+    displayError('Empty Input');
+  } elseif (hasInvalidUsername($name)) {
+    displayError('Invalid Username');
+  } elseif (!doPasswordsMatch($password, $pwdcheck)) {
+    displayError('Passwords do not match');
+  } elseif (doesUsernameOrEmailExist($name, $email)) {
+    displayError('Username or Email already exists');
   } else {
-    if(createUser($name, $email, $password) !== null) {
-	echo "<script>alert('Une erreur est survenue lors d\'une requête')</script>";
+    // Try to create a new user in the database
+    $result = createUser($name, $email, $password);
+    if ($result === null) {
+      // Error occurred during database operation
+      displayError('An error occurred during a database query');
     } else {
-    	header("location: ../routes/login.php");
-    	exit();
+      // User created successfully, redirect to login page
+      header("location: ../routes/login.php");
+      exit();
     }
   }
-};
+}
+
+// Checks if any input field is empty
+function hasEmptyInput($name, $email, $password, $pwdcheck) {
+  return empty($name) || empty($email) || empty($password) || empty($pwdcheck);
+}
+
+// Checks if the username is valid
+function hasInvalidUsername($name) {
+  // TODO: implement your own logic here
+  return false;
+}
+
+// Checks if the two passwords match
+function doPasswordsMatch($password, $pwdcheck) {
+  return $password === $pwdcheck;
+}
+
+// Checks if the given username or email already exists in the database
+function doesUsernameOrEmailExist($name, $email) {
+  // TODO: implement your own logic here
+  return false;
+}
+
+// Displays an error message as a JavaScript alert
+function displayError($message) {
+  echo "<script>alert('$message')</script>";
+}
+
 
 ?>
 
