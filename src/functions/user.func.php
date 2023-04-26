@@ -1,4 +1,5 @@
 <?php 
+
 require_once(realpath(__DIR__ . DIRECTORY_SEPARATOR . 'dbConnect.func.php'));
 
 // Returns true if any of the input fields are empty

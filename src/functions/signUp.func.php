@@ -10,7 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
     // Validate user input data
     require_once "dbConnect.func.php";
+
     require "user.func.php";
+    
     if (hasEmptyInputSignUp($name, $email, $password, $pwdcheck)) {
         redirectToSignUpWithError('emptyinput');
     }

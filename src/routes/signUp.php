@@ -22,7 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     displayError('Username or Email already exists');
   } else {
     // Try to create a new user in the database
+
     $result = createNewUser($name, $email, $password);
+
     if ($result === null) {
       // Error occurred during database operation
       displayError('An error occurred during a database query');

@@ -8,9 +8,9 @@ if (isset($_POST['submit'])) {
     $pwd = $_POST['password'];
     
     // Include the necessary files and functions
+
     require_once "dbConnect.func.php";
     require_once "user.func.php";
-    require_once "fonctions.func.php";
     
     // Check for empty input
     if (EmptyInputLogin($username, $pwd)) {
