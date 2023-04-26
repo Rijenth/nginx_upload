@@ -1,7 +1,7 @@
 <?php 
 require(realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/shellCommande.php'));
 session_start();
-require(realpath(__DIR__ . DIRECTORY_SEPARATOR . 'shellCommande.php'));
+
 $username = null;
 $email  = null;
 if(isset($_SESSION["name"])) {
@@ -20,13 +20,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $username = $_SESSION['name'];
   $file = $_FILES['fileToUpload'];
 
+  $shellCommande = new shellCommande();
+
   try {
-    $shellCommande = new shellCommande();
     $shellCommande->uploadFile($username, $file);
     
-    echo 'Upload successful!';
+    echo '<script>alert("Upload successful!")</script>';
+    
   } catch (Exception $e) {
-    echo 'Error: ' . $e->getMessage();
+    echo '<script>alert(' . "Error: " . $e->getMessage() .')</script>';
   }
 }
 
@@ -47,18 +49,26 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1 class="user-welcome">Bonjour <?= $username ?></h1>
         <p class="user-email"><?= $email ?></p>
         <a href="../logout.php">Deconnexion</a>  
-      </aside>
-      <div id="files-n-folder">
-        <button id="uploadFile">
-          <img src="../../assets/img/upload.svg" alt="file" />
-        </button>
+
+        <hr>
+        
+        <h2>Upload un fichier</h2>
+        <p>Vous pouvez upload un fichier en cliquant sur le bouton ci-dessous</p>
+        
+        <hr>
+
         <form action="#" method="POST" enctype="multipart/form-data">
           <input type="file" name="fileToUpload" id="fileToUpload">
-          <input type="submit" value="Upload" name="submit">
+          <button id="createFolder" type="submit" name="submit">
+            <img src="../../assets/img/createFolder.svg" alt="folder" />
+          </button>
         </form>
-        <button id="createFolder">
-          <img src="../../assets/img/createFolder.svg" alt="folder" />
-        </button>
+
+      </aside>
+      <div id="files-n-folder">
+        <!-- <button id="uploadFile">
+          <img src="../../assets/img/upload.svg" alt="file" />
+        </button> -->
 
         <div class="folder">
           <img src="../../assets/img/folder.svg" alt="folder" />
