@@ -8,5 +8,8 @@
   </head>
   <body>
     <h1>Bonjour {{user.username}}</h1>
-  </body>
+    <a href="./dashboard/logout.php">Deconnexion</a>  
+
+
+</body>
 </html>
