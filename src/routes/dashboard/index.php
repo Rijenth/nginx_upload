@@ -1,4 +1,5 @@
 <?php 
+require(realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/shellCommande.php'));
 session_start();
 require(realpath(__DIR__ . DIRECTORY_SEPARATOR . 'shellCommande.php'));
 $username = null;
@@ -21,7 +22,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   try {
     $shellCommande = new shellCommande();
-    $shellCommande->uploadFile($username, $file, $destination);
+    $shellCommande->uploadFile($username, $file);
+    
     echo 'Upload successful!';
   } catch (Exception $e) {
     echo 'Error: ' . $e->getMessage();
