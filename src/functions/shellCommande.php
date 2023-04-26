@@ -21,7 +21,7 @@ class shellCommande
     public function createFolder($username) {
         shell_exec(sprintf("sudo mkdir /home/%s", escapeshellarg($username)));
 
-        shell_exec(sprintf("cd /home/%s && sudo mkdir backups && sudo mkdir sites && cd ../", escapeshellarg($username)));
+        shell_exec(sprintf("cd /home/%s && sudo mkdir backups && sudo mkdir sites && sudo mkdir upload && cd ../", escapeshellarg($username)));
 
         shell_exec(sprintf("sudo chown -R %s:%s /home/%s", escapeshellarg($username), escapeshellarg($username), escapeshellarg($username)));
     }
@@ -48,7 +48,7 @@ class shellCommande
     /*
         Télécharger un fichier dans l'espace de stockage de l'utilisateur
     */
-    public function uploadFile($username, $file, $destination) {
+    public function uploadFile($username, $file) {
         if (!isset($file['error']) || is_array($file['error']) || !is_readable($file['tmp_name'])) {
             throw new Exception("Le fichier n'existe pas ou n'est pas lisible.");
         }
@@ -63,7 +63,7 @@ class shellCommande
             throw new Exception("La taille du fichier dépasse la limite autorisée.");
         }
 
-        $destination_dir = "/home/" . $username . "/" . $destination;
+        $destination_dir = "/home/" . $username . "/upload";
         if (!file_exists($destination_dir)) {
             $cmd_mkdir = sprintf("mkdir -p %s", escapeshellarg($destination_dir));
             shell_exec($cmd_mkdir);
@@ -72,7 +72,7 @@ class shellCommande
             throw new Exception("Le répertoire de destination n'est pas accessible en écriture.");
         }
 
-        $tmp_filename = tempnam(sys_get_temp_dir(), 'upload_');
+        $tmp_filename = tempnam(sys_get_temp_dir(), 'upload');
 
         if (!move_uploaded_file($file['tmp_name'], $tmp_filename)) {
             throw new Exception("Impossible de copier le fichier.");

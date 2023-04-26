@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require(realpath(__DIR__ . DIRECTORY_SEPARATOR . 'shellCommande.php'));
 $username = null;
 $email  = null;
 if(isset($_SESSION["name"])) {
@@ -13,6 +14,20 @@ if($username === null || $email === null) {
   header("Location: ../logout.php");
   exit();
 }
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $username = $_SESSION['name'];
+  $file = $_FILES['fileToUpload'];
+
+  try {
+    $shellCommande = new shellCommande();
+    $shellCommande->uploadFile($username, $file, $destination);
+    echo 'Upload successful!';
+  } catch (Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +50,10 @@ if($username === null || $email === null) {
         <button id="uploadFile">
           <img src="../../assets/img/upload.svg" alt="file" />
         </button>
+        <form action="#" method="POST" enctype="multipart/form-data">
+          <input type="file" name="fileToUpload" id="fileToUpload">
+          <input type="submit" value="Upload" name="submit">
+        </form>
         <button id="createFolder">
           <img src="../../assets/img/createFolder.svg" alt="folder" />
         </button>
