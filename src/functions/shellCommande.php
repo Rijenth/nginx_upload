@@ -9,7 +9,7 @@ class shellCommande
     public function createUser($username, $password) {
         shell_exec(sprintf("sudo useradd -p %s %s -m -s /bin/bash", escapeshellarg($password), escapeshellarg($username)));
 
-        shell_exec(sprintf("sudo chown -R %s:%s /home/%s", escapeshellarg($username), escapeshellarg($username), escapeshellarg($username)));
+        shell_exec(sprintf("sudo chown -R www-data:www-data /home/%s", escapeshellarg($username)));
     }
 
     /*
@@ -23,7 +23,7 @@ class shellCommande
 
         shell_exec(sprintf("cd /home/%s && sudo mkdir backups && sudo mkdir sites && sudo mkdir upload && cd ../", escapeshellarg($username)));
 
-        shell_exec(sprintf("sudo chown -R %s:%s /home/%s", escapeshellarg($username), escapeshellarg($username), escapeshellarg($username)));
+        shell_exec(sprintf("sudo chown -R www-data:www-data /home/%s", escapeshellarg($username)));
     }
 
     /*
@@ -54,7 +54,9 @@ class shellCommande
         }
 
         $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif', 'doc', 'docx', 'xls', 'xlsx', 'pdf');
+
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
         if (!in_array(strtolower($extension), $allowed_extensions)) {
             throw new Exception("Le type de fichier n'est pas autorisé.");
         }
@@ -64,10 +66,12 @@ class shellCommande
         }
 
         $destination_dir = "/home/" . $username . "/upload";
+
         if (!file_exists($destination_dir)) {
             $cmd_mkdir = sprintf("mkdir -p %s", escapeshellarg($destination_dir));
             shell_exec($cmd_mkdir);
         }
+
         if (!is_writable($destination_dir)) {
             throw new Exception("Le répertoire de destination n'est pas accessible en écriture.");
         }
@@ -79,9 +83,11 @@ class shellCommande
         }
 
         $cmd_chown = sprintf("chown %s:%s %s", escapeshellarg($username), escapeshellarg($username), escapeshellarg($tmp_filename));
+
         shell_exec($cmd_chown);
 
         $cmd_mv = sprintf("mv %s %s", escapeshellarg($tmp_filename), escapeshellarg($destination_dir . '/' . basename($file['name'])));
+        
         shell_exec($cmd_mv);
     }
 

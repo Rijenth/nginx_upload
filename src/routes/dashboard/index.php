@@ -42,6 +42,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="../../assets/styles/dashboard.css" />
+    <script>
+      const uploadFileButton = document.getElementById('uploadFile');
+      const fileInput = document.getElementById('fileToUpload');
+
+      uploadFileButton.addEventListener('click', () => {
+        fileInput.click();
+      });
+  </script>
   </head>
   <body>
     <main id="dashboard">
@@ -49,26 +57,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1 class="user-welcome">Bonjour <?= $username ?></h1>
         <p class="user-email"><?= $email ?></p>
         <a href="../logout.php">Deconnexion</a>  
-
-        <hr>
-        
-        <h2>Upload un fichier</h2>
-        <p>Vous pouvez upload un fichier en cliquant sur le bouton ci-dessous</p>
-        
-        <hr>
-
+      </aside>
+      <div id="files-n-folder">
         <form action="#" method="POST" enctype="multipart/form-data">
-          <input type="file" name="fileToUpload" id="fileToUpload">
+          <input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">
           <button id="createFolder" type="submit" name="submit">
             <img src="../../assets/img/createFolder.svg" alt="folder" />
           </button>
         </form>
 
-      </aside>
-      <div id="files-n-folder">
-        <!-- <button id="uploadFile">
+        <button id="uploadFile">
           <img src="../../assets/img/upload.svg" alt="file" />
-        </button> -->
+        </button>
 
         <div class="folder">
           <img src="../../assets/img/folder.svg" alt="folder" />
