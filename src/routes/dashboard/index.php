@@ -82,6 +82,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </label>
         </button>
       </form>
+    
+    <!-- Modal to allow user to reset password -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form class="resetPassword" action="../../functions/resetPassword.php" method="POST">
+            <label for="oldPassword">Ancien mot de passe</label>
+            <input type="password" name="oldPassword" id="oldPassword" required>
+            <label for="newPassword">Nouveau mot de passe</label>
+            <input type="password" name="newPassword" id="newPassword" required>
+            <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" required>
+            <button type="submit" name="resetPassword" id="resetPassword">Réinitialiser le mot de passe</button>
+          </form>
+        </div>
+      </div>
+      <!-- Button to open modal -->
+      <button id="resetPasswordBtn">Réinitialiser le mot de passe</button>
     </aside>
 
     <div id="files-n-folder">
@@ -129,6 +147,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       fileInput.click();
     });
+
+    // Get the modal
+    const modal = document.getElementById("modal");
+    const modalTrigger = document.getElementById("resetPasswordBtn");
+
+    modalTrigger.addEventListener('click', function() {
+      modal.classList.add('active');
+    });
+
+    // if user clicks on the close button, close the modal
+    const closeBtn = document.getElementsByClassName("close")[0];
+    closeBtn.addEventListener('click', function() {
+      modal.classList.remove('active');
+    });
+
+    // if user clicks anywhere outside of the modal, close it
+    window.addEventListener('click', function(event) {
+      if (event.target == modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // reset password form
+    const resetPasswordForm = document.querySelector('.resetPassword');
+    const oldPassword = document.getElementById('oldPassword');
+    const newPassword = document.getElementById('newPassword');
+    const confirmPassword = document.getElementById('confirmPassword');
+
+    resetPasswordForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (newPassword.value !== confirmPassword.value) {
+        alert('Les mots de passe ne correspondent pas');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('oldPassword', oldPassword.value);
+      formData.append('newPassword', newPassword.value);
+      formData.append('confirmPassword', confirmPassword.value);
+
+      fetch('../../functions/resetPassword.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+            modal.classList.remove('active');
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    });
+
+    
   </script>
 
 </body>
