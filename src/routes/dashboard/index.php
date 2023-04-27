@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <form id="uploadForm" method="POST" enctype="multipart/form-data">
         <h1 class="user-welcome">Bonjour <?= $username ?></h1>
         <p class="user-email"><?= $email ?></p>
-        <p class="user-account-size">Taille de votre repertoire: <?= $dashboard_data['account_size'] ?></p>
-        <p class="user-database-size">Taille de la base de données: <?= $dashboard_data['database_size'] ?></p>
+        <p class="user-account-size">Taille de votre repertoire: <?= $dashboard_data['account_size'] ?? '0K' ?></p>
+        <p class="user-database-size">Taille de la base de données: <?= $dashboard_data['database_size'] ?? '0K' ?></p>
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">

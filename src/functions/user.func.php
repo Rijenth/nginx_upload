@@ -119,11 +119,11 @@ function getDashboardData($username): array
 {
     $accountSize = shell_exec("du -sh /home/$username | awk '{print $1}'");
 
-    $DB_size = shell_exec("du -sh /var/lib/mysql/db | awk '{print $1}'");
+    $database_size = shell_exec("sudo du -sh /var/lib/mysql/$username | awk '{print $1}'");
 
     return [
         "account_size" => $accountSize,
-        "database_size" => $DB_size
+        "database_size" => $database_size
     ];
 }
 
