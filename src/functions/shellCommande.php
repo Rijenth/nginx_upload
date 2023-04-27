@@ -1,5 +1,7 @@
 <?php
 
+require realpath(__DIR__ . DIRECTORY_SEPARATOR . 'user.func.php');
+
 class shellCommande
 {
     /*
@@ -113,7 +115,10 @@ class shellCommande
         return $files;
     }
 
-    function getDashboardData($username): array
+    /*
+        Charge les informations de l'utilisateur pour le tableau de bord
+    */
+    public function getDashboardData($username): array
     {
         $accountSize = shell_exec("du -sh /home/$username | awk '{print $1}'");
 
@@ -123,5 +128,28 @@ class shellCommande
             "account_size" => $accountSize,
             "database_size" => $database_size
         ];
+    }
+
+    /*
+        Change le mot de passe de l'utilisateur Linux et MySQL
+    */
+    public function changePassword($username, $password)
+    {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        shell_exec(sprintf("sudo echo '%s:%s' | sudo chpasswd", escapeshellarg($username), escapeshellarg($password)));
+
+        $pdo = new PDO('mysql:host=localhost;dbname=db', 'root', '');
+
+        $query = $pdo->prepare("UPDATE user SET password = :password WHERE username = :username");
+
+        $query->execute([
+            "password" => $password,
+            "username" => $username
+        ]);
+
+        shell_exec(sprintf("sudo mysql -u root -e \"UPDATE mysql.user SET Password = PASSWORD('%s') WHERE User = '%s';\"", escapeshellarg($password), escapeshellarg($username)));
+
+        shell_exec("sudo mysql -u root -e \"FLUSH PRIVILEGES;\"");
     }
 }

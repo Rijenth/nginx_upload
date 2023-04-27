@@ -33,6 +33,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
     }
   }
+
+  if(isset($_POST['resetPassword'])) {
+    $newPassword = filter_input(INPUT_POST, 'newPassword');
+    $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
+
+    if (empty($newPassword) || empty($confirmPassword)) {
+      echo '<script>alert("Please fill all the fields")</script>';
+
+    } else if ($newPassword !== $confirmPassword) {
+        echo '<script>alert("Passwords do not match")</script>';
+
+    } else {
+      $shellCommande = new shellCommande();
+
+      try {
+        $shellCommande->changePassword($username, $newPassword);
+
+        echo '<script>alert("Password changed successfully!")</script>';
+        
+      } catch (Exception $e) {
+        echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
+      }
+    }
+  }
 }
 ?>
 
@@ -88,8 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="modal-content">
           <span class="close">&times;</span>
           <form class="resetPassword" action="../../functions/resetPassword.php" method="POST">
-            <label for="oldPassword">Ancien mot de passe</label>
-            <input type="password" name="oldPassword" id="oldPassword" required>
             <label for="newPassword">Nouveau mot de passe</label>
             <input type="password" name="newPassword" id="newPassword" required>
             <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
