@@ -14,7 +14,7 @@ $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['uploadFile'])) {
-    var_dump($_FILES);
+    echo '<script>alert("Upload started")</script>';
     if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
       echo '<script>alert("Php stopped working")</script>';
     } else {
@@ -35,10 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
     }
+  } else {
+    echo '<script>alert("upload stopped working")</script>';
   }
 
   if(isset($_POST['resetPassword'])) {
-    var_dump($_POST);
+    echo '<script>alert("Reset password started")</script>';
     $newPassword = filter_input(INPUT_POST, 'newPassword');
     $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 
@@ -60,6 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
     }
+  } else {
+    echo '<script>alert("reset password stopped working")</script>';
   }
 }
 ?>
