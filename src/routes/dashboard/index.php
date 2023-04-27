@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php } ?>
 
       <?php foreach ($user_files as $filename) { ?>
-        <?php if (in_array(end(explode('.', $filename)), ['jpg', 'jpeg', 'png', 'gif'])) { ?>
+        <?php if (in_array(end(explode('.', $filename)), ['jpg', 'jpeg', 'png', 'gif','pdf','docx','doc','txt','mp3','mp4','mkv','avi','zip','rar','7z','tar','gz','iso','exe','msi','apk','deb','rpm','jar','java','php','html','css','js','py','c','cpp','h','hpp','sh','bat','vbs','sql','xml','json','yml','yaml','ini','cfg','conf','log','bak','bak','bak'])) { ?>
           <div class="file">
             <img src="../../assets/img/file.svg" alt="file" />
             <p><?= $filename ?></p>
