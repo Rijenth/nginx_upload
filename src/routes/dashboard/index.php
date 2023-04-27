@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if(isset($_POST['newPassword']) && isset($_POST['confirmPassword'])) {
-    echo '<script>alert("Reset password started")</script>';
     $newPassword = filter_input(INPUT_POST, 'newPassword');
     $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 

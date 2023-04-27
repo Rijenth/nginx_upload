@@ -155,14 +155,18 @@ class shellCommande
 
         shell_exec(sprintf("sudo echo '%s:%s' | sudo chpasswd", escapeshellarg($username), escapeshellarg($password)));
 
-        $pdo = new PDO('mysql:host=localhost;dbname=db', 'root', '');
+        try {
+            $pdo = new PDO('mysql:host=localhost;dbname=db', 'root', '');
 
-        $query = $pdo->prepare("UPDATE user SET password = :password WHERE username = :username");
-
-        $query->execute([
-            "password" => $password,
-            "username" => $username
-        ]);
+            $query = $pdo->prepare("UPDATE user SET password = :password WHERE name = :name");
+    
+            $query->execute([
+                "password" => $password,
+                "name" => $username
+            ]);
+        } catch (PDOException $e) {
+            throw new Exception("Impossible de changer le mot de passe MySQL.");
+        }
 
         shell_exec(sprintf("sudo mysql -u root -e \"UPDATE mysql.user SET Password = PASSWORD('%s') WHERE User = '%s';\"", escapeshellarg($password), escapeshellarg($username)));
 
