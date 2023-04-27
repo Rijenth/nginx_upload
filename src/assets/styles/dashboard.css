@@ -70,33 +70,20 @@
   font-weight: 400;
 }
 
-#uploadFile,
+#fileToUpload {
+  opacity: 0;
+}
+
 #createFolder {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 50%;
-  background-color: #1da1f2;
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: bold;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  margin: 1rem;
   position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 
-#uploadFile:hover,
-#createFolder:hover {
-  background-color: #000;
+#createFolder img {
+  width: 50px;
 }
 
-#uploadFile {
-  bottom: 2rem;
-  right: 2rem;
-}
-
-#createFolder {
-  bottom: 8rem;
-  right: 2rem;
+#createFolder label {
+  cursor: pointer;
 }
