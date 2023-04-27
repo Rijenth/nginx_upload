@@ -72,12 +72,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <a href="../logout.php">Deconnexion</a>
 
       <form method="POST" enctype="multipart/form-data">
+        
+        <input type="file" name="fileToUpload" id="fileToUpload">
         <label for="fileToUpload">
           <button id="uploadFile" type="submit" name="submit">
             <img src="../../assets/img/upload.svg" alt="folder" />
           </button>
         </label>
-        <input type="file" name="fileToUpload" id="fileToUpload">
       </form>
 
     </aside>
