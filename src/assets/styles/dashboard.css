@@ -79,10 +79,17 @@
   height: 100%;
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+}
+#uploadForm > * {
+  margin: 1rem 0;
+}
+
+#uploadForm input[type="file"] {
+  display: none;
 }
 
 #uploadFile {
+  margin-top: 3rem;
   border: none;
   outline: none;
   background-color: #fff;
