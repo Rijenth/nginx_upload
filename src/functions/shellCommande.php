@@ -147,6 +147,25 @@ class shellCommande
     }
 
     /*
+        Affiche les charges du CPU de l'utilisateur
+    */
+    public function getCpuInfo($username): array
+    {
+        $output = shell_exec("sudo -u $username grep 'cpu ' /proc/stat | awk '{print $2 $4 $5}'");
+
+        $cpu_values = explode("\n", trim($output));
+
+        $cpu_values = array_filter($cpu_values);
+
+        return [
+            "user" => $cpu_values[0],
+            "system" => $cpu_values[1],
+            "idle" => $cpu_values[2],
+        ];
+    }
+
+
+    /*
         Change le mot de passe de l'utilisateur Linux et MySQL
     */
     public function changePassword($username, $password)

@@ -107,6 +107,8 @@ function login($username, $password)
 
         $_SESSION['user_memory'] = $shell->getMemoryInfo(strtolower($username));
 
+        $_SESSION['user_cpu'] = $shell->getCpuInfo(strtolower($username));
+
         header("location: ../routes/dashboard/index.php");
         exit();
     } else {

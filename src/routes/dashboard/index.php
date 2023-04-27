@@ -12,26 +12,31 @@ $email = $_SESSION["email"];
 $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 $memory_info = $_SESSION['user_memory'] ?? [];
+$cpu_info = $_SESSION['user_cpu'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_FILES['fileToUpload'])) {
-      if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
-        echo '<script>alert("Php stopped working")</script>';
-      } else {
-        $file = $_FILES['fileToUpload'];
-        $shellCommande = new shellCommande();
+    if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
+      echo '<script>alert("Php stopped working")</script>';
+    } else {
+      $file = $_FILES['fileToUpload'];
+      $shellCommande = new shellCommande();
 
-        try {
-          $shellCommande->uploadFile($username, $file);
-          $_SESSION['user_files'] = $shellCommande->listFiles($username);
+      try {
+        $shellCommande->uploadFile($username, $file);
+        
+        $_SESSION['user_files'] = $shellCommande->listFiles($username);
 
-          $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
+        $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
 
-          $user_files = $_SESSION['user_files'];
+        $user_files = $_SESSION['user_files'];
 
         $dashboard_data = $_SESSION['dashboard_data'];
 
         $memory_info = $shellCommande->getMemoryInfo($username);
+
+        $cpu_info = $shellCommande->getCpuInfo($username);
+
         echo '<script>alert("Upload successful!")</script>';
       } catch (Exception $e) {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
@@ -87,6 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="user-total-memory">Total de mémoire: <?= $memory_info['total'] ?? 'OK' ?></p>
         <p class="user-free-memory">Mémoire libre: <?= $memory_info['free'] ?? 'OK' ?></p>
         <p class="user-available-memory">Mémoire Disponible: <?= $memory_info['available'] ?? 'OK' ?></p>
+        <p class="user-cpu-usage">Utilisation du CPU: <?= $cpu_info['user'] ?? 'OK' ?></p>
+        <p class="user-cpu-system">Système CPU: <?= $cpu_info['system'] ?? 'OK' ?></p>
+        <p class="user-cpu-idle">CPU inactif: <?= $cpu_info['idle'] ?? 'OK' ?></p>
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">
