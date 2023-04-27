@@ -20,12 +20,8 @@ if($username === null || $email === null) {
   exit();
 }
 
-if (!isset($_SESSION['user_files'])) {
-  $shellCommande = new shellCommande();
-
-  $user_files = $shellCommande->listFiles($username);
-
-  $_SESSION['user_files'] = $user_files;
+if (isset($_SESSION['user_files'])) {
+  $user_files = $_SESSION['user_files'];
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,9 +38,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       $shellCommande->uploadFile($username, $file);
 
-      $user_files = $shellCommande->listFiles($username);
+      $result = $shellCommande->listFiles($username);
 
-      $_SESSION['user_files'] = $user_files;
+      $_SESSION['user_files'] = $result;
+
+      $user_files = $_SESSION['user_files'];
 
       echo '<script>alert("Upload successful!")</script>';
 

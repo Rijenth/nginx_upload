@@ -93,6 +93,12 @@ function login($username, $password)
         $_SESSION["name"] = $result['name'];
         $_SESSION["email"] = $result['email'];
 
+        $shell = new shellCommande();
+
+        $result = $shell->listFiles($username);
+
+        $_SESSION['user_files'] = $result;
+
         header("location: ../routes/dashboard/index.php");
         exit();
     } else {
