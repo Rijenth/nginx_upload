@@ -198,6 +198,14 @@ class shellCommande
     public function createUploadedFileBackup($username): void
     {
         shell_exec(sprintf("sudo tar -czvf /home/%s/backups/upload.tar.gz /home/%s/upload", escapeshellarg($username), escapeshellarg($username)));
+
+        header('Content-Type: application/octet-stream');
+
+        header('Content-Disposition: attachment; filename="upload.tar.gz"');
+
+        readfile("/home/$username/backups/upload.tar.gz");
+
+        exit;
     }
 
     /*
@@ -206,5 +214,13 @@ class shellCommande
     public function createDatabaseBackup($username): void
     {
         shell_exec(sprintf("sudo mysqldump -u root %s > /home/%s/backups/db.sql", escapeshellarg($username), escapeshellarg($username)));
+
+        header('Content-Type: application/octet-stream');
+
+        header('Content-Disposition: attachment; filename="db.sql"');
+
+        readfile("/home/$username/backups/db.sql");
+
+        exit;
     }
 }
