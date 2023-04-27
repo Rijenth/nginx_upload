@@ -140,27 +140,6 @@
   height: 2rem;
 }
 
-/* Modal */
-/* here's the html :
- <!-- Modal to allow user to reset password -->
-      <div id="modal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <form class="resetPassword" action="../../functions/resetPassword.php" method="POST">
-            <label for="oldPassword">Ancien mot de passe</label>
-            <input type="password" name="oldPassword" id="oldPassword" required>
-            <label for="newPassword">Nouveau mot de passe</label>
-            <input type="password" name="newPassword" id="newPassword" required>
-            <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" required>
-            <button type="submit" name="resetPassword" id="resetPassword">Réinitialiser le mot de passe</button>
-          </form>
-        </div>
-      </div>
-      <!-- Button to open modal -->
-      <button id="resetPasswordBtn">Réinitialiser le mot de passe</button>
-*/
-
 #modal {
   display: none;
   position: fixed;

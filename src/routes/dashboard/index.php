@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <!-- Button to open modal -->
-      <button id="resetPasswordBtn">Réinitialiser le mot de passe</button>
+      <button id="openModal">Réinitialiser le mot de passe</button>
 
     </aside>
 
@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Get the modal
     const modal = document.getElementById("modal");
-    const modalTrigger = document.getElementById("resetPasswordBtn");
+    const modalTrigger = document.getElementById("openModal");
 
     modalTrigger.addEventListener('click', function() {
       modal.classList.add('active');
@@ -195,40 +195,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // reset password form
     const resetPasswordForm = document.querySelector('.resetPassword');
-    /* const oldPassword = document.getElementById('oldPassword'); */
     const newPassword = document.getElementById('newPassword');
     const confirmPassword = document.getElementById('confirmPassword');
+    const submitBtn = document.getElementById('resetPassword');
 
-    resetPasswordForm.addEventListener('submit', function(e) {
+    submitBtn.addEventListener('click', function(e) {
       e.preventDefault();
 
       if (newPassword.value !== confirmPassword.value) {
         alert('Les mots de passe ne correspondent pas');
-        return;
+      } else {
+        resetPasswordForm.submit();
       }
-
-      const formData = new FormData();
-      /* formData.append('oldPassword', oldPassword.value); */
-      formData.append('newPassword', newPassword.value);
-      formData.append('confirmPassword', confirmPassword.value);
-
-      fetch('../../functions/resetPassword.php', {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert(data.message);
-            modal.classList.remove('active');
-          } else {
-            alert(data.message);
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
     });
+
+    
 
     
   </script>
