@@ -13,24 +13,26 @@ $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
-    echo '<script>alert("Php stopped working")</script>';
-  } else {
-    $file = $_FILES['fileToUpload'];
-    $shellCommande = new shellCommande();
+  if (isset($_POST['uploadFile'])) {
+    if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
+      echo '<script>alert("Php stopped working")</script>';
+    } else {
+      $file = $_FILES['fileToUpload'];
+      $shellCommande = new shellCommande();
 
-    try {
-      $shellCommande->uploadFile($username, $file);
-      $_SESSION['user_files'] = $shellCommande->listFiles($username);
+      try {
+        $shellCommande->uploadFile($username, $file);
+        $_SESSION['user_files'] = $shellCommande->listFiles($username);
 
-      $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
+        $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
 
-      $user_files = $_SESSION['user_files'];
+        $user_files = $_SESSION['user_files'];
 
-      $dashboard_data = $_SESSION['dashboard_data'];
-      echo '<script>alert("Upload successful!")</script>';
-    } catch (Exception $e) {
-      echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
+        $dashboard_data = $_SESSION['dashboard_data'];
+        echo '<script>alert("Upload successful!")</script>';
+      } catch (Exception $e) {
+        echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
+      }
     }
   }
 
@@ -82,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">
-          <button id="uploadFile" type="button">
+          <button id="uploadFile" name="uploadFile" type="button">
             <img src="../../assets/img/upload.svg" alt="folder" />
           </button>
         </label>
@@ -111,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <form class="resetPassword" action="../../functions/resetPassword.php" method="POST">
+          <form class="resetPassword" method="POST">
             <label for="newPassword">Nouveau mot de passe</label>
             <input type="password" name="newPassword" id="newPassword" required>
             <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
