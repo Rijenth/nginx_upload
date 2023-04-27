@@ -16,6 +16,7 @@ $memory_info = $_SESSION['user_memory'] ?? [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($_FILES['fileToUpload']) {
     echo '<script>alert("Upload started")</script>';
+    
     if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
       echo '<script>alert("Php stopped working")</script>';
     } else {
@@ -62,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
     }
+  }
   }
 }
 ?>
