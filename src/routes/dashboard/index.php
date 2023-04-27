@@ -1,5 +1,6 @@
 <?php
 require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/shellCommande.php');
+require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/user.func.php');
 session_start();
 
 if (!isset($_SESSION["name"]) || !isset($_SESSION["email"])) {
@@ -22,6 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       $shellCommande->uploadFile($username, $file);
       $_SESSION['user_files'] = $shellCommande->listFiles($username);
+
+      $_SESSION['dashboard_data'] = getDashboardData($username);
+
       $user_files = $_SESSION['user_files'];
       echo '<script>alert("Upload successful!")</script>';
     } catch (Exception $e) {
