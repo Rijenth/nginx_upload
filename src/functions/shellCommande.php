@@ -1,7 +1,5 @@
 <?php
 
-require realpath(__DIR__ . DIRECTORY_SEPARATOR . 'user.func.php');
-
 class shellCommande
 {
     /*
