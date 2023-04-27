@@ -15,7 +15,6 @@
 
         <a href="./routes/signUp.php">SignUp</a>
       </div>
-      <a href="./routes/dashboard/index.php">Dashboard</a>
     </main>
   </body>
 </html>
