@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       formData.append('newPassword', newPassword.value);
       formData.append('confirmPassword', confirmPassword.value);
 
-      fetch('../../functions/resetPassword.php', {
+      fetch('./index.php', {
           method: 'POST',
           body: formData
         })
