@@ -1,7 +1,8 @@
 <?php
-require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/shellCommande.php');
-require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/user.func.php');
 session_start();
+require_once realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/shellCommande.php');
+require realpath(__DIR__ . DIRECTORY_SEPARATOR . '../../functions/user.func.php');
+
 
 if (!isset($_SESSION["name"]) || !isset($_SESSION["email"])) {
   header("Location: ../logout.php");
