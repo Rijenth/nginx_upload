@@ -90,22 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     uploadBtn.addEventListener('click', function(e) {
       e.preventDefault();
 
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.name = 'fileToUpload';
-
-      fileInput.addEventListener('change', function() {
-        const file = fileInput.files[0];
-        if (file) {
-          form.submit();
-          // console.log the post request
-          console.log('POST request: ', form.action, form.method, form.enctype, form.encoding, form.target);
-        } else {
-          alert('Javascript stopped working!');
-        }
-      });
-
-      fileInput.click();
+      /* POST file so the php from the beginning of the file receive it 
+      and upload it to the server */
+      form.submit();
     });
   </script>
 
