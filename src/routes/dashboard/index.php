@@ -22,6 +22,7 @@ if ($username === null || $email === null) {
 
 if (isset($_SESSION['user_files'])) {
   $user_files = $_SESSION['user_files'];
+  echo `<script>console.log($user_files)</script>`;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
