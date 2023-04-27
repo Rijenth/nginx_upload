@@ -129,6 +129,24 @@ class shellCommande
     }
 
     /*
+        Affiche les données de mémoire de l'utilisateur
+    */
+    public function getMemoryInfo($username): array
+    {
+        $output = shell_exec("sudo -u $username grep -E '^(MemTotal|MemFree|MemAvailable):' /proc/meminfo | awk '{print $2}'");
+
+        $memory_values = explode("\n", trim($output));
+
+        $memory_values = array_filter($memory_values);
+
+        return [
+            "total" => $memory_values[0],
+            "free" => $memory_values[1],
+            "available" => $memory_values[2]
+        ];
+    }
+
+    /*
         Change le mot de passe de l'utilisateur Linux et MySQL
     */
     public function changePassword($username, $password)

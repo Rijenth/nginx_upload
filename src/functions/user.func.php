@@ -105,6 +105,8 @@ function login($username, $password)
 
         $_SESSION['dashboard_data'] = $shell->getDashboardData(strtolower($username));
 
+        $_SESSION['user_memory'] = $shell->getMemoryInfo(strtolower($username));
+
         header("location: ../routes/dashboard/index.php");
         exit();
     } else {

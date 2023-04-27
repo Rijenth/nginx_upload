@@ -11,6 +11,7 @@ $username = $_SESSION["name"];
 $email = $_SESSION["email"];
 $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
+$memory_info = $_SESSION['user_memory'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($_FILES['fileToUpload']) {
@@ -29,11 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user_files = $_SESSION['user_files'];
 
-        $dashboard_data = $_SESSION['dashboard_data'];
-        echo '<script>alert("Upload successful!")</script>';
-      } catch (Exception $e) {
-        echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
-      }
+      $dashboard_data = $_SESSION['dashboard_data'];
+
+      $memory_info = $shellCommande->getMemoryInfo($username);
+      echo '<script>alert("Upload successful!")</script>';
+    } catch (Exception $e) {
+      echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
     }
   }
 
@@ -83,6 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="user-email"><?= $email ?></p>
         <p class="user-account-size">Taille de votre repertoire: <?= $dashboard_data['account_size'] ?? '0K' ?></p>
         <p class="user-database-size">Taille de la base de données: <?= $dashboard_data['database_size'] ?? '0K' ?></p>
+        <p class="user-total-memory">Total de mémoire: <?= $memory_info['total'] ?? 'OK' ?></p>
+        <p class="user-free-memory">Mémoire libre: <?= $memory_info['free'] ?? 'OK' ?></p>
+        <p class="user-available-memory">Mémoire Disponible: <?= $memory_info['available'] ?? 'OK' ?></p>
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">
