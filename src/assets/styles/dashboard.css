@@ -107,3 +107,35 @@
 #uploadFile:hover {
   transform: scale(1.05);
 }
+
+.downloadUserData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 1rem;
+}
+
+.downloadUserData > * {
+  margin: 1rem 0;
+}
+
+.downloadUserData button {
+  margin-top: 3rem;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.downloadUserData button img {
+  width: 2rem;
+  height: 2rem;
+}

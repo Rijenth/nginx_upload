@@ -58,6 +58,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </button>
         </label>
       </form>
+    
+    <!-- Button to download archive of all uploaded files -->
+      <form class="downloadUserData" action="../../functions/downloadArchive.php" method="POST">
+        <button type="submit" name="downloadArchive" id="downloadArchive">
+          <label for="downloadArchive">
+            Télécharger mes fichiers utilisateur
+          <img src="../../assets/img/download.svg" alt="folder" />
+          </label>
+        </button>
+      </form>
+      <!-- Button to download archive of all user's bdd -->
+      <form class="downloadUserData" action="../../functions/downloadBdd.php" method="POST">
+        <button type="submit" name="downloadBdd" id="downloadBdd">
+          <label for="downloadBdd">
+            Télécharger mes données utilisateur            
+          <img src="../../assets/img/downloadUser.svg" alt="folder" />
+          </label>
+        </button>
+      </form>
     </aside>
 
     <div id="files-n-folder">
