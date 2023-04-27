@@ -151,9 +151,9 @@ class shellCommande
     */
     public function getCpuInfo($username): array
     {
-        $output = shell_exec("sudo -u $username grep 'cpu ' /proc/stat | awk '{print $2 $4 $5}'");
+        $output = shell_exec("sudo -u $username grep 'cpu ' /proc/stat | awk '{print $2, $4, $5}'");
 
-        $cpu_values = explode("\n", trim($output));
+        $cpu_values = explode(" ", trim($output));
 
         $cpu_values = array_filter($cpu_values);
 
