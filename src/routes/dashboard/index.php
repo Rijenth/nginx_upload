@@ -13,7 +13,6 @@ $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  var_dump($_POST);
   if (isset($_POST['uploadFile'])) {
     echo '<script>alert("Upload started")</script>';
     if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
@@ -79,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
   <main id="dashboard">
     <aside id="user-data">
-      <form id="uploadForm" method="POST" enctype="multipart/form-data">
+      <form id="uploadForm" method="POST" enctype="multipart/form-data" action="#">
         <h1 class="user-welcome">Bonjour <?= $username ?></h1>
         <p class="user-email"><?= $email ?></p>
         <p class="user-account-size">Taille de votre repertoire: <?= $dashboard_data['account_size'] ?? '0K' ?></p>
@@ -87,9 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">
-          <input id="uploadFile" name="uploadFile" type="submit">
+          <button id="uploadFile" name="uploadFile" type="submit">
             <img src="../../assets/img/upload.svg" alt="folder" />
-          </input>
+          </button>
         </label>
       </form>
     
@@ -116,12 +115,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <form class="resetPassword" method="POST">
+          <form class="resetPassword" method="POST" action="#">
             <label for="newPassword">Nouveau mot de passe</label>
             <input type="password" name="newPassword" id="newPassword" required>
             <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
             <input type="password" name="confirmPassword" id="confirmPassword" required>
-            <input type="submit" name="resetPassword" id="resetPassword">Réinitialiser le mot de passe</input>
+            <button type="submit" name="resetPassword" id="resetPassword">Réinitialiser le mot de passe</button>
           </form>
         </div>
       </div>
