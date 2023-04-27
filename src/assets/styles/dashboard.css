@@ -74,10 +74,15 @@
   opacity: 0;
 }
 
-#createFolder {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+#uploadFile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f5f5f5;
+  width: 150px;
+  cursor: pointer;
 }
 
 #createFolder img {

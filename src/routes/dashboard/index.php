@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <form method="POST" enctype="multipart/form-data">
         <label for="fileToUpload">
-          <button id="createFolder" type="button" name="submit">
+          <button id="uploadFile" type="submit" name="submit">
             <img src="../../assets/img/upload.svg" alt="folder" />
           </button>
         </label>
