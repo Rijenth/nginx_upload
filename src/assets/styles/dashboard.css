@@ -70,25 +70,40 @@
   font-weight: 400;
 }
 
-#fileToUpload {
-  opacity: 0;
+#uploadForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 1rem;
+}
+#uploadForm > * {
+  margin: 1rem 0;
+}
+
+#uploadForm input[type="file"] {
+  display: none;
 }
 
 #uploadFile {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  margin-top: 3rem;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  border-bottom: 1px solid #f5f5f5;
-  width: 150px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+#uploadFile img {
+  width: 2rem;
+  height: 2rem;
 }
 
-#createFolder img {
-  width: 50px;
-}
-
-#createFolder label {
-  cursor: pointer;
+#uploadFile:hover {
+  transform: scale(1.05);
 }
