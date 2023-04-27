@@ -13,9 +13,9 @@ $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST['uploadFile'])) {
+  if ($_FILES['fileToUpload']) {
     echo '<script>alert("Upload started")</script>';
-    if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
+    if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
       echo '<script>alert("Php stopped working")</script>';
     } else {
       $file = $_FILES['fileToUpload'];
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  if(isset($_POST['resetPassword'])) {
+  if(isset($_POST['newPassword']) && $_POST['confirmPassword']) {
     echo '<script>alert("Reset password started")</script>';
     $newPassword = filter_input(INPUT_POST, 'newPassword');
     $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
