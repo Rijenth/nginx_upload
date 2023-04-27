@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <form class="resetPassword" action="../../functions/resetPassword.php" method="POST">
+          <form class="resetPassword"  method="POST">
             <label for="newPassword">Nouveau mot de passe</label>
             <input type="password" name="newPassword" id="newPassword" required>
             <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
