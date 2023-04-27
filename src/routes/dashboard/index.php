@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <form class="resetPassword"  method="POST">
+          <form class="resetPassword" action="../../functions/resetPassword.php" method="POST">
             <label for="newPassword">Nouveau mot de passe</label>
             <input type="password" name="newPassword" id="newPassword" required>
             <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
@@ -195,6 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // reset password form
     const resetPasswordForm = document.querySelector('.resetPassword');
+    /* const oldPassword = document.getElementById('oldPassword'); */
     const newPassword = document.getElementById('newPassword');
     const confirmPassword = document.getElementById('confirmPassword');
 
@@ -207,10 +208,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       const formData = new FormData();
+      /* formData.append('oldPassword', oldPassword.value); */
       formData.append('newPassword', newPassword.value);
       formData.append('confirmPassword', confirmPassword.value);
 
-      fetch('./index.php', {
+      fetch('../../functions/resetPassword.php', {
           method: 'POST',
           body: formData
         })
@@ -227,6 +229,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           console.error(error);
         });
     });
+
+    
   </script>
 
 </body>
