@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <p class="user-email"><?= $email ?></p>
       <a href="../logout.php">Deconnexion</a>
 
-      <form method="POST" enctype="multipart/form-data">
+      <form id="uploadForm" method="POST" enctype="multipart/form-data">
         
         <input type="file" name="fileToUpload" id="fileToUpload">
         <label for="fileToUpload">
