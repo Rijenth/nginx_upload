@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $shellCommande->changePassword($username, $newPassword);
 
         echo '<script>alert("Password changed successfully!")</script>';
-        
+
       } catch (Exception $e) {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
@@ -120,8 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </form>
         </div>
       </div>
+
       <!-- Button to open modal -->
       <button id="resetPasswordBtn">Réinitialiser le mot de passe</button>
+
     </aside>
 
     <div id="files-n-folder">
@@ -193,7 +195,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // reset password form
     const resetPasswordForm = document.querySelector('.resetPassword');
-    const oldPassword = document.getElementById('oldPassword');
     const newPassword = document.getElementById('newPassword');
     const confirmPassword = document.getElementById('confirmPassword');
 
@@ -206,7 +207,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       const formData = new FormData();
-      formData.append('oldPassword', oldPassword.value);
       formData.append('newPassword', newPassword.value);
       formData.append('confirmPassword', confirmPassword.value);
 
@@ -227,8 +227,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           console.error(error);
         });
     });
-
-    
   </script>
 
 </body>
