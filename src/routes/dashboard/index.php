@@ -14,7 +14,7 @@ $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 $memory_info = $_SESSION['user_memory'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if ($_FILES['fileToUpload']) {
+  if (isset($_FILES['fileToUpload'])) {
     if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
       echo '<script>alert("Php stopped working")</script>';
     } else {
@@ -38,9 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  echo '<script>alert(' . $_POST . ')</script>';
-  
-  if($_POST['newPassword'] && $_POST['confirmPassword']) {
+  if(isset($_POST['newPassword']) && isset($_POST['confirmPassword'])) {
     echo '<script>alert("Reset password started")</script>';
     $newPassword = filter_input(INPUT_POST, 'newPassword');
     $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
@@ -122,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <form class="resetPassword" method="POST" action="#">
+          <form id="resetPasswordForm" class="resetPassword" method="POST" action="#">
             <label for="newPassword">Nouveau mot de passe</label>
             <input type="password" name="newPassword" id="newPassword" required>
             <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
@@ -205,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
 
     // reset password form
-    const resetPasswordForm = document.querySelector('.resetPassword');
+    const resetPasswordForm = document.getElementById('resetPasswordForm');
     const newPassword = document.getElementById('newPassword');
     const confirmPassword = document.getElementById('confirmPassword');
     const submitBtn = document.getElementById('resetPassword');
