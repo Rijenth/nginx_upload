@@ -57,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="../../assets/img/upload.svg" alt="folder" />
           </button>
         </label>
-        <input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">
       </form>
     </aside>
 
@@ -90,9 +89,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     uploadBtn.addEventListener('click', function(e) {
       e.preventDefault();
 
-      /* POST file so the php from the beginning of the file receive it 
-      and upload it to the server */
-      form.submit();
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.name = 'fileToUpload';
+
+      fileInput.addEventListener('change', function() {
+        const file = fileInput.files[0];
+        if (file) {
+          form.appendChild(fileInput);
+          form.submit();
+        } else {
+          alert('Javascript stopped working!');
+        }
+      });
+
+      fileInput.click();
     });
   </script>
 
