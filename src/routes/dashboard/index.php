@@ -14,6 +14,7 @@ $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['uploadFile'])) {
+    var_dump($_FILES);
     if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
       echo '<script>alert("Php stopped working")</script>';
     } else {
@@ -37,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if(isset($_POST['resetPassword'])) {
+    var_dump($_POST);
     $newPassword = filter_input(INPUT_POST, 'newPassword');
     $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 
@@ -84,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">
-          <button id="uploadFile" name="uploadFile" type="button">
+          <button id="uploadFile" name="uploadFile" type="submit">
             <img src="../../assets/img/upload.svg" alt="folder" />
           </button>
         </label>
