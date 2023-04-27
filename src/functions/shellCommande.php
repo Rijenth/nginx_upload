@@ -27,6 +27,19 @@ class shellCommande
     }
 
     /*
+        Créer une base de données avec le nom d'utilisateur spécifié
+    */
+    public function createUserDatabase($username)
+    {
+        shell_exec(sprintf("sudo mysql -u root -e \"CREATE DATABASE %s;\"", escapeshellarg($username)));
+
+        shell_exec(sprintf("sudo mysql -u root -e \"CREATE USER '%s'@'localhost' IDENTIFIED BY '%s';\"", escapeshellarg($username), escapeshellarg($username)));
+
+        shell_exec(sprintf("sudo mysql -u root -e \"GRANT ALL PRIVILEGES ON %s.* TO '%s'@'localhost' IDENTIFIED BY '%s';\"", escapeshellarg($username), escapeshellarg($username), escapeshellarg($username)));
+
+    }
+
+    /*
         Supprimer l'utilisateur avec le nom d'utilisateur spécifié
         Supprimer l'espace de stockage de l'utilisateur
     */

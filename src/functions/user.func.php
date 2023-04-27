@@ -50,9 +50,13 @@ function createNewUser($name, $email, $password)
 {
     $shell = new shellCommande();
 
+    $name = strtolower($name);
+
     $shell->createUser($name, $password);
 
     $shell->createFolder($name);
+
+    $shell->createUserDatabase($name);
 
     $dbh = connectToDatabase();
 
@@ -61,7 +65,7 @@ function createNewUser($name, $email, $password)
     $request = $dbh->prepare("INSERT INTO user (name, email, password) VALUES (:name, :email, :pass);");
 
     return $request->execute([
-        "name" => strtolower($name), 
+        "name" => $name, 
         "email" => $email, 
         "pass" => $pass
     ]);
