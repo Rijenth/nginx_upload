@@ -98,6 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const file = fileInput.files[0];
         if (file) {
           form.submit();
+          // console.log the post request
+          console.log('POST request: ', form.action, form.method, form.enctype, form.encoding, form.target);
         } else {
           alert('Javascript stopped working!');
         }
