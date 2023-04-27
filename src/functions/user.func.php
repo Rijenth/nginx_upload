@@ -61,7 +61,7 @@ function createNewUser($name, $email, $password)
     $request = $dbh->prepare("INSERT INTO user (name, email, password) VALUES (:name, :email, :pass);");
 
     return $request->execute([
-        "name" => $name, 
+        "name" => strtolower($name), 
         "email" => $email, 
         "pass" => $pass
     ]);
@@ -90,12 +90,12 @@ function login($username, $password)
     if($checkPass) {
         session_start();
         $_SESSION["uid"] = $result['id'];
-        $_SESSION["name"] = $result['name'];
+        $_SESSION["name"] = strtolower($result['name']);
         $_SESSION["email"] = $result['email'];
 
         $shell = new shellCommande();
 
-        $result = $shell->listFiles($username);
+        $result = $shell->listFiles(strtolower($username));
 
         $_SESSION['user_files'] = $result;
 
