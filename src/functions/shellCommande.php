@@ -66,7 +66,7 @@ class shellCommande
             throw new Exception("Le fichier n'existe pas ou n'est pas lisible.");
         }
 
-        $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif', 'doc', 'docx', 'xls', 'xlsx', 'pdf');
+        $allowed_extensions = array('jpg', '.txt', 'jpeg', 'png', 'gif', 'doc', 'docx', 'xls', 'xlsx', 'pdf');
 
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
 
