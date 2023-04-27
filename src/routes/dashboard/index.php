@@ -26,6 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
 
       $user_files = $_SESSION['user_files'];
+
+      $dashboard_data = $_SESSION['dashboard_data'];
       echo '<script>alert("Upload successful!")</script>';
     } catch (Exception $e) {
       echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
