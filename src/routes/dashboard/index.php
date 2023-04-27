@@ -13,6 +13,7 @@ $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  var_dump($_POST);
   if (isset($_POST['uploadFile'])) {
     echo '<script>alert("Upload started")</script>';
     if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
@@ -35,8 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
     }
-  } else {
-    echo '<script>alert("upload stopped working")</script>';
   }
 
   if(isset($_POST['resetPassword'])) {
@@ -62,8 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
     }
-  } else {
-    echo '<script>alert("reset password stopped working")</script>';
   }
 }
 ?>
@@ -90,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">
-          <button id="uploadFile" name="uploadFile" type="submit">
+          <input id="uploadFile" name="uploadFile" type="submit">
             <img src="../../assets/img/upload.svg" alt="folder" />
-          </button>
+          </input>
         </label>
       </form>
     
@@ -124,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" name="newPassword" id="newPassword" required>
             <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
             <input type="password" name="confirmPassword" id="confirmPassword" required>
-            <button type="submit" name="resetPassword" id="resetPassword">Réinitialiser le mot de passe</button>
+            <input type="submit" name="resetPassword" id="resetPassword">Réinitialiser le mot de passe</input>
           </form>
         </div>
       </div>
