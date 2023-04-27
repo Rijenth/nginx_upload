@@ -13,6 +13,7 @@ $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 $memory_info = $_SESSION['user_memory'] ?? [];
 $cpu_info = $_SESSION['user_cpu'] ?? [];
+$shellCommand = new shellCommande();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_FILES['fileToUpload'])) {
@@ -20,22 +21,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo '<script>alert("Php stopped working")</script>';
     } else {
       $file = $_FILES['fileToUpload'];
-      $shellCommande = new shellCommande();
-
+      
       try {
-        $shellCommande->uploadFile($username, $file);
+        $shellCommand->uploadFile($username, $file);
         
-        $_SESSION['user_files'] = $shellCommande->listFiles($username);
+        $_SESSION['user_files'] = $shellCommand->listFiles($username);
 
-        $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
+        $_SESSION['dashboard_data'] = $shellCommand->getDashboardData($username);
 
         $user_files = $_SESSION['user_files'];
 
         $dashboard_data = $_SESSION['dashboard_data'];
 
-        $memory_info = $shellCommande->getMemoryInfo($username);
+        $memory_info = $shellCommand->getMemoryInfo($username);
 
-        $cpu_info = $shellCommande->getCpuInfo($username);
+        $cpu_info = $shellCommand->getCpuInfo($username);
 
         echo '<script>alert("Upload successful!")</script>';
       } catch (Exception $e) {
@@ -55,16 +55,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Passwords do not match")</script>';
 
     } else {
-      $shellCommande = new shellCommande();
-
       try {
-        $shellCommande->changePassword($username, $newPassword);
+        $shellCommand->changePassword($username, $newPassword);
 
         echo '<script>alert("Password changed successfully!")</script>';
 
       } catch (Exception $e) {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
+    }
+  }
+
+  if (isset($_POST['downloadArchive'])) {
+    try {
+      $shellCommand->createUploadedFileBackup($username);
+
+      echo '<script>alert("Uploaded files backup downloaded successfully!")</script>';
+
+    } catch (Exception $e) {
+      echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
+    }
+  }
+  
+  if (isset($_POST['downloadBdd'])) {
+    try {
+      $shellCommand->createDatabaseBackup($username);
+
+      echo '<script>alert("Database backup downloaded successfully!")</script>';
+
+    } catch (Exception $e) {
+      echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
     }
   }
 }
@@ -105,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </form>
     
     <!-- Button to download archive of all uploaded files -->
-      <form class="downloadUserData" action="../../functions/downloadArchive.php" method="POST">
+      <form class="downloadUserData" action="#" method="POST">
         <button type="submit" name="downloadArchive" id="downloadArchive">
           <label for="downloadArchive">
             Télécharger mes fichiers utilisateur
@@ -114,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </button>
       </form>
       <!-- Button to download archive of all user's bdd -->
-      <form class="downloadUserData" action="../../functions/downloadBdd.php" method="POST">
+      <form class="downloadUserData" action="#" method="POST">
         <button type="submit" name="downloadBdd" id="downloadBdd">
           <label for="downloadBdd">
             Télécharger mes données utilisateur            

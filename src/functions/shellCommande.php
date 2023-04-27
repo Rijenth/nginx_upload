@@ -170,8 +170,6 @@ class shellCommande
     */
     public function changePassword($username, $password)
     {
-        $password = password_hash($password, PASSWORD_DEFAULT);
-
         shell_exec(sprintf("sudo echo '%s:%s' | sudo chpasswd", escapeshellarg($username), escapeshellarg($password)));
 
         try {
@@ -180,7 +178,7 @@ class shellCommande
             $query = $pdo->prepare("UPDATE user SET password = :password WHERE name = :name");
     
             $query->execute([
-                "password" => $password,
+                "password" => password_hash($password, PASSWORD_DEFAULT),
                 "name" => $username
             ]);
         } catch (PDOException $e) {
@@ -190,5 +188,23 @@ class shellCommande
         shell_exec(sprintf("sudo mysql -u root -e \"UPDATE mysql.user SET Password = PASSWORD('%s') WHERE User = '%s';\"", escapeshellarg($password), escapeshellarg($username)));
 
         shell_exec("sudo mysql -u root -e \"FLUSH PRIVILEGES;\"");
+    }
+
+    // le mot de passe du user linux ne DOIT PAS etre le mdp haché
+
+    /*
+        create a backup of the user's uploaded file
+    */
+    public function createUploadedFileBackup($username): void
+    {
+        shell_exec(sprintf("sudo tar -czvf /home/%s/backups/upload.tar.gz /home/%s/upload", escapeshellarg($username), escapeshellarg($username)));
+    }
+
+    /*
+        create a backup of the user's database
+    */
+    public function createDatabaseBackup($username): void
+    {
+        shell_exec(sprintf("sudo mysqldump -u root %s > /home/%s/backups/db.sql", escapeshellarg($username), escapeshellarg($username)));
     }
 }
