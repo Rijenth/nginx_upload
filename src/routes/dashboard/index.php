@@ -10,6 +10,7 @@ if (!isset($_SESSION["name"]) || !isset($_SESSION["email"])) {
 $username = $_SESSION["name"];
 $email = $_SESSION["email"];
 $user_files = $_SESSION['user_files'] ?? [];
+$dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
@@ -45,6 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form id="uploadForm" method="POST" enctype="multipart/form-data">
       <h1 class="user-welcome">Bonjour <?= $username ?></h1>
       <p class="user-email"><?= $email ?></p>
+      <p class="user-account-size">Taille de votre repertoire: <?= $dashboard_data['account_size'] ?></p>
+      <p class="user-database-size">Taille de la base de données: <?= $dashboard_data['database_size'] ?></p>
       <a href="../logout.php">Deconnexion</a>
 
       <label for="fileToUpload">

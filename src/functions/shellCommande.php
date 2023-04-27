@@ -31,12 +31,7 @@ class shellCommande
     */
     public function createUserDatabase($username)
     {
-        shell_exec(sprintf("sudo mysql -u root -e \"CREATE DATABASE %s;\"", escapeshellarg($username)));
-
-        shell_exec(sprintf("sudo mysql -u root -e \"CREATE USER '%s'@'localhost' IDENTIFIED BY '%s';\"", escapeshellarg($username), escapeshellarg($username)));
-
-        shell_exec(sprintf("sudo mysql -u root -e \"GRANT ALL PRIVILEGES ON %s.* TO '%s'@'localhost' IDENTIFIED BY '%s';\"", escapeshellarg($username), escapeshellarg($username), escapeshellarg($username)));
-
+        shell_exec(sprintf("sudo sh /var/www/html/serveur-nginx/create_database.sh %s", escapeshellarg($username)));
     }
 
     /*

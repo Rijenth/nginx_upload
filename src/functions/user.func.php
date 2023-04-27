@@ -103,6 +103,8 @@ function login($username, $password)
 
         $_SESSION['user_files'] = $result;
 
+        $_SESSION['dashboard_data'] = getDashboardData(strtolower($username));
+
         header("location: ../routes/dashboard/index.php");
         exit();
     } else {
@@ -111,6 +113,18 @@ function login($username, $password)
         return false;
     }
 
+}
+
+function getDashboardData($username): array
+{
+    $accountSize = shell_exec("du -sh /home/$username | awk '{print $1}'");
+
+    $DB_size = shell_exec("du -sh /var/lib/mysql/db | awk '{print $1}'");
+
+    return [
+        "account_size" => $accountSize,
+        "database_size" => $DB_size
+    ];
 }
 
 // Connects to the database
