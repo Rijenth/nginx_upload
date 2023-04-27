@@ -15,26 +15,27 @@ $memory_info = $_SESSION['user_memory'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_FILES['fileToUpload'])) {
-    if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
-      echo '<script>alert("Php stopped working")</script>';
-    } else {
-      $file = $_FILES['fileToUpload'];
-      $shellCommande = new shellCommande();
+      if ($_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
+        echo '<script>alert("Php stopped working")</script>';
+      } else {
+        $file = $_FILES['fileToUpload'];
+        $shellCommande = new shellCommande();
 
-      try {
-        $shellCommande->uploadFile($username, $file);
-        $_SESSION['user_files'] = $shellCommande->listFiles($username);
+        try {
+          $shellCommande->uploadFile($username, $file);
+          $_SESSION['user_files'] = $shellCommande->listFiles($username);
 
-        $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
+          $_SESSION['dashboard_data'] = $shellCommande->getDashboardData($username);
 
-        $user_files = $_SESSION['user_files'];
+          $user_files = $_SESSION['user_files'];
 
-      $dashboard_data = $_SESSION['dashboard_data'];
+        $dashboard_data = $_SESSION['dashboard_data'];
 
-      $memory_info = $shellCommande->getMemoryInfo($username);
-      echo '<script>alert("Upload successful!")</script>';
-    } catch (Exception $e) {
-      echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
+        $memory_info = $shellCommande->getMemoryInfo($username);
+        echo '<script>alert("Upload successful!")</script>';
+      } catch (Exception $e) {
+        echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
+      }
     }
   }
 
@@ -61,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
       }
     }
-  }
   }
 }
 ?>
