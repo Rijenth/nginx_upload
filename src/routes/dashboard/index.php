@@ -14,7 +14,7 @@ $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] === UPLOAD_ERR_NO_FILE) {
-    echo '<script>alert("Please select a file to upload!")</script>';
+    echo '<script>alert("Php stopped working")</script>';
   } else {
     $file = $_FILES['fileToUpload'];
     $shellCommande = new shellCommande();
@@ -87,27 +87,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     const form = document.getElementById('uploadForm');
     const uploadBtn = document.getElementById('uploadFile');
 
-    // Add event listener for button click
     uploadBtn.addEventListener('click', function(e) {
-      e.preventDefault(); // Prevent default button behavior
+      e.preventDefault();
 
-      // Create input element for file upload
       const fileInput = document.createElement('input');
       fileInput.type = 'file';
       fileInput.name = 'fileToUpload';
 
-      // Add change event listener for file input
       fileInput.addEventListener('change', function() {
         const file = fileInput.files[0];
         if (file) {
-          // Submit form when file is selected
           form.submit();
         } else {
-          alert('Please select a file to upload!');
+          alert('Javascript stopped working!');
         }
       });
 
-      // Click the file input to open the file upload dialog
       fileInput.click();
     });
   </script>
