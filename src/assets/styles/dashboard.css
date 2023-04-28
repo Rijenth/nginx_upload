@@ -37,22 +37,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-}
-
-.user-account-size,
-.user-database-size {
-  font-size: 1.2rem;
-  font-weight: 400;
-}
-
-.user-total-memory,
-.user-free-memory,
-.user-available-memory,
-.user-cpu-usage,
-.user-cpu-system,
-.user-cpu-idle {
   font-size: 0.8rem;
-  font-weight: 400;
+  font-weight: lighter;
 }
 
 #openModal {
