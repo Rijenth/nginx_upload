@@ -305,9 +305,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       createFolderBtn.style.display = 'none';
       createFolderBtn.parentElement.appendChild(createFolderForm);
+
+      createFolderSubmit.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        createFolderForm.submit();
+      });
     });
 
     
+
+
 
     
 
