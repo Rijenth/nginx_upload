@@ -13,6 +13,7 @@ $user_files = $_SESSION['user_files'] ?? [];
 $dashboard_data = $_SESSION['dashboard_data'] ?? [];
 $memory_info = $_SESSION['user_memory'] ?? [];
 $cpu_info = $_SESSION['user_cpu'] ?? [];
+$disk_info = $_SESSION['user_disk'] ?? [];
 $shellCommand = new shellCommande();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
