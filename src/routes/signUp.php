@@ -43,7 +43,6 @@ function hasEmptyInput($name, $email, $password, $pwdcheck) {
 
 // Checks if the username is valid
 function hasInvalidUsername($name) {
-  // TODO: implement your own logic here
   return false;
 }
 
