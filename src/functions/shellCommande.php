@@ -168,11 +168,11 @@ class shellCommande
     {
         $output = shell_exec("sudo -u $username df -h / | awk '{print $2, $3, $4}'");
 
-        $hdd_values = explode("\n", trim($output));
+        $hdd_values = explode(" ", trim($output));
 
         $hdd_values = array_filter($hdd_values);
 
-        var_dump($hdd_values);
+        var_dump($hdd_values[1], $hdd_values[2], $hdd_values[3]);
         die();
 
         return [
