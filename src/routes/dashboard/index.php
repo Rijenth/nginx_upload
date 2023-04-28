@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $cpu_info = $shellCommand->getCpuInfo($username);
 
+        $disk_info = $shellCommand->getHddInfo($username);
+
         echo '<script>alert("Upload successful!")</script>';
       } catch (Exception $e) {
         echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
@@ -115,6 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="user-cpu-usage">Utilisation du CPU: <?= $cpu_info['user'] ?? 'OK' ?></p>
         <p class="user-cpu-system">Système CPU: <?= $cpu_info['system'] ?? 'OK' ?></p>
         <p class="user-cpu-idle">CPU inactif: <?= $cpu_info['idle'] ?? 'OK' ?></p>
+        <p class="user-hdd-total">Taille du disque dur: <?= $disk_info['total'] ?? 'OK' ?></p>
+        <p class="user-hdd-used">Espace utilisé du disque dur: <?= $disk_info['used'] ?? 'OK' ?></p>
+        <p class="user-hdd-available">Espace disponible du disque dur: <?= $disk_info['free'] ?? 'OK' ?></p>
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">

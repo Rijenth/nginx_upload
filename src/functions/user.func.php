@@ -109,6 +109,8 @@ function login($username, $password)
 
         $_SESSION['user_cpu'] = $shell->getCpuInfo(strtolower($username));
 
+        $_SESSION['user_disk'] = $shell->getHddInfo(strtolower($username));
+
         header("location: ../routes/dashboard/index.php");
         exit();
     } else {
