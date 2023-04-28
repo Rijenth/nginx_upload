@@ -109,7 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <form id="uploadForm" method="POST" enctype="multipart/form-data" action="#">
         <h1 class="user-welcome">Bonjour <?= $username ?></h1>
         <p class="user-email"><?= $email ?></p>
-        <p class="user-account-size">Taille de votre repertoire: <?= $dashboard_data['account_size'] ?? '0K' ?></p>
+       <div class="computer-data">
+          <p class="user-account-size">Taille de votre repertoire: <?= $dashboard_data['account_size'] ?? '0K' ?></p>
         <p class="user-database-size">Taille de la base de données: <?= $dashboard_data['database_size'] ?? '0K' ?></p>
         <p class="user-total-memory">Total de mémoire: <?= $memory_info['total'] ?? 'OK' ?></p>
         <p class="user-free-memory">Mémoire libre: <?= $memory_info['free'] ?? 'OK' ?></p>
@@ -120,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="user-hdd-total">Taille du disque dur: <?= $disk_info['total'] ?? 'OK' ?></p>
         <p class="user-hdd-used">Espace utilisé du disque dur: <?= $disk_info['used'] ?? 'OK' ?></p>
         <p class="user-hdd-available">Espace disponible du disque dur: <?= $disk_info['free'] ?? 'OK' ?></p>
+       </div>
         <a href="../logout.php">Deconnexion</a>
 
         <label for="fileToUpload">
