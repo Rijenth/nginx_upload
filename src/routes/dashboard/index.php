@@ -90,7 +90,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
     }
   }
+
+  if (isset($_POST['createFolder'])) {
+    $directoryName = filter_input(INPUT_POST, 'directoryName');
+    try {
+      $shellCommand->createSpecificFolder($username,$directoryName);
+
+      $_SESSION['user_files'] = $shell->listFiles(strtolower($username));
+
+      $user_files = $_SESSION['user_files'];
+
+      echo '<script>alert("Create Folder successfully!")</script>';
+
+    } catch (Exception $e) {
+      echo '<script>alert("Error: ' . $e->getMessage() . '")</script>';
+    }
+  }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -131,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </button>
         </label>
         <label for="createFolder">
-          <button id="createFolder" name="createFolder" type="button">
+          <button id="createFolder" name="createFolder" type="submit">
             <img src="../../assets/img/createFolder.svg" alt="folder" />
           </button>
         </label>

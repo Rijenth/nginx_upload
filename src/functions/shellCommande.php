@@ -26,6 +26,20 @@ class shellCommande
         shell_exec(sprintf("sudo chown -R www-data:www-data /home/%s", escapeshellarg($username)));
     }
 
+    public function createSpecificFolder($username,$directoryName) {
+        shell_exec(sprintf("sudo mkdir /home/%s/%s", escapeshellarg($username), escapeshellarg($directoryName)));
+
+        shell_exec(sprintf("sudo chown -R www-data:www-data /home/%s", escapeshellarg($directoryName)));
+    }
+
+    /*
+        Afficher le contenu du dossier spécifié dans l'espace de stockage de l'utilisateur
+    */
+
+    public function showAllFolder($username) {
+        shell_exec(sprintf("cd /home/%s && ls", escapeshellarg($username)));
+    }
+
     /*
         Créer une base de données avec le nom d'utilisateur spécifié
     */
@@ -169,8 +183,6 @@ class shellCommande
         $output = shell_exec("sudo -u $username df -h | grep /dev/root | awk '{print $2, $3, $4}'");
 
         $hdd_values = explode(" ", trim($output));
-
-        // $hdd_values = array_filter($hdd_values);
 
         return [
             "total" => $hdd_values[0],
