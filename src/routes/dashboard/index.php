@@ -129,6 +129,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="../../assets/img/upload.svg" alt="folder" />
           </button>
         </label>
+        <label for="createFolder">
+          <button id="createFolder" name="createFolder" type="button">
+            <img src="../../assets/img/createFolder.svg" alt="folder" />
+          </button>
+        </label>
       </form>
     
    <div class="grouped-actions">

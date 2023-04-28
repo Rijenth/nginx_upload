@@ -111,7 +111,8 @@
   display: none;
 }
 
-#uploadFile {
+#uploadFile,
+#createFolder {
   margin-top: 3rem;
   border: none;
   outline: none;
@@ -122,11 +123,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-#uploadFile img {
+#uploadFile img,
+#createFolder img {
   width: 2rem;
   height: 2rem;
 }
 
+#createFolder:hover,
 #uploadFile:hover {
   transform: scale(1.05);
 }
