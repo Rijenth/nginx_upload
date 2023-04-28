@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (isset($_POST['createFolder'])) {
-    $directoryName = filter_input(INPUT_POST, 'directoryName');
+    $directoryName = filter_input(INPUT_POST, 'folderName');
     try {
       $shellCommand->createSpecificFolder($username,$directoryName);
 
@@ -305,20 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       createFolderBtn.style.display = 'none';
       createFolderBtn.parentElement.appendChild(createFolderForm);
-
-      createFolderSubmit.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        createFolderForm.submit();
-      });
     });
-
-    
-
-
-
-    
-
     
   </script>
 
