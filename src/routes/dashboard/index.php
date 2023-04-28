@@ -28,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $_SESSION['user_files'] = $shellCommand->listFiles($username);
 
+        array_merge($_SESSION['user_files'], $shellCommand->showAllFolder($username));
+
         $_SESSION['dashboard_data'] = $shellCommand->getDashboardData($username);
 
         $user_files = $_SESSION['user_files'];
@@ -96,8 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       $shellCommand->createSpecificFolder($username,$directoryName);
 
-      $_SESSION['user_files'] = $shellCommand->listFiles(strtolower($username));
-
+      array_merge($_SESSION['user_files'], $shellCommand->showAllFolder($username));
+      
       $user_files = $_SESSION['user_files'];
 
       echo '<script>alert("Create Folder successfully!")</script>';

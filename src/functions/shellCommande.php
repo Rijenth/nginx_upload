@@ -33,14 +33,6 @@ class shellCommande
     }
 
     /*
-        Afficher le contenu du dossier spécifié dans l'espace de stockage de l'utilisateur
-    */
-
-    public function showAllFolder($username) {
-        shell_exec(sprintf("cd /home/%s && ls", escapeshellarg($username)));
-    }
-
-    /*
         Créer une base de données avec le nom d'utilisateur spécifié
     */
     public function createUserDatabase($username)
@@ -119,6 +111,20 @@ class shellCommande
     public function listFiles($username): array 
     {
         $output = shell_exec(sprintf("ls /home/%s/upload", escapeshellarg($username)));
+
+        $files = explode("\n", trim($output));
+
+        $files = array_filter($files);
+
+        return $files;
+    }
+    
+    /*
+        Afficher les  dossier spécifié dans l'espace de stockage de l'utilisateur
+    */
+    public function showAllFolder($username): array 
+    {
+        $output = shell_exec(sprintf("ls /home/%s", escapeshellarg($username)));
 
         $files = explode("\n", trim($output));
 
