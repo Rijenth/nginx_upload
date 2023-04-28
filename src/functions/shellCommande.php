@@ -172,13 +172,10 @@ class shellCommande
 
         $hdd_values = array_filter($hdd_values);
 
-        var_dump($hdd_values[1], $hdd_values[2], $hdd_values[3]);
-        die();
-
         return [
-            "total" => $hdd_values[0],
-            "used" => $hdd_values[1],
-            "free" => $hdd_values[2]
+            "total" => $hdd_values[2],
+            "used" => $hdd_values[3],
+            "free" => $hdd_values[4]
         ];
     }
 
