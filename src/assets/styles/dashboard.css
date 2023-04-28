@@ -23,15 +23,53 @@
 }
 
 .user-welcome {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
 .user-email {
   font-size: 1.2rem;
   font-weight: 400;
-  color: #a0a0a0;
+}
+
+.user-account-size,
+.user-database-size {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.user-total-memory,
+.user-free-memory,
+.user-available-memory,
+.user-cpu-usage,
+.user-cpu-system,
+.user-cpu-idle {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.user-total-memory,
+.user-free-memory,
+.user-available-memory {
+  margin-bottom: 1rem;
+}
+
+.user-cpu-usage,
+.user-cpu-system,
+.user-cpu-idle {
+  margin-top: 1rem;
+}
+
+#openModal {
+  margin-top: 3rem;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 #files-n-folder {
