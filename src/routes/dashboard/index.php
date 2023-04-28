@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       $shellCommand->createSpecificFolder($username,$directoryName);
 
-      $_SESSION['user_files'] = array_merge($_SESSION['user_files'], $shellCommand->showAllFolder($username));
+      $_SESSION['user_files'] = array_merge($_SESSION['user_files'], $directoryName);
 
       $user_files = $_SESSION['user_files'];
 
