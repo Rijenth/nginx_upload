@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
       $shellCommand->createSpecificFolder($username,$directoryName);
 
-      $_SESSION['user_files'] = $shell->listFiles(strtolower($username));
+      $_SESSION['user_files'] = $shellCommand->listFiles(strtolower($username));
 
       $user_files = $_SESSION['user_files'];
 
