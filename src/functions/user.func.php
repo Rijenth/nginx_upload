@@ -102,8 +102,8 @@ function login($username, $password)
         $result = $shell->listFiles(strtolower($username));
 
         $_SESSION['user_files'] = $result;
-        
-        array_merge($_SESSION['user_files'], $shell->showAllFolder($username));
+
+        $_SESSION['user_files'] =  array_merge($_SESSION['user_files'], $shell->showAllFolder($username));
 
         $_SESSION['dashboard_data'] = $shell->getDashboardData(strtolower($username));
 
