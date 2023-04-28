@@ -166,9 +166,9 @@ class shellCommande
 
     public function getHddInfo($username): array
     {
-        $output = shell_exec("sudo -u $username df -h | grep /dev/root | awk '{print $2, $3, $4}'");
+        $output = shell_exec("sudo -u $username df -h / | awk '{print $2, $3, $4}'");
 
-        $hdd_values = explode(" ", trim($output));
+        $hdd_values = explode("\n", trim($output));
 
         $hdd_values = array_filter($hdd_values);
 
