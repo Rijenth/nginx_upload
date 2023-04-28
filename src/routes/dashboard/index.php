@@ -261,6 +261,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     });
 
+    // create folder form
+    const createFolderBtn = document.getElementById('createFolder');
+    const createFolderForm = document.createElement('form');
+    createFolderForm.method = 'POST';
+    createFolderForm.action = '#';
+
+    const createFolderInput = document.createElement('input');
+    createFolderInput.type = 'text';
+    createFolderInput.name = 'folderName';
+    createFolderInput.id = 'folderName';
+    createFolderInput.placeholder = 'Nom du dossier';
+    createFolderInput.required = true;
+
+    const createFolderSubmit = document.createElement('button');
+    createFolderSubmit.type = 'submit';
+    createFolderSubmit.name = 'createFolder';
+    createFolderSubmit.id = 'createFolder';
+    createFolderSubmit.innerText = 'Créer le dossier';
+    
+    createFolderForm.appendChild(createFolderInput);
+    createFolderForm.appendChild(createFolderSubmit);
+
+    createFolderBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      createFolderBtn.style.display = 'none';
+      createFolderBtn.parentElement.appendChild(createFolderForm);
+    });
+
+    
+
     
 
     
