@@ -124,7 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </label>
       </form>
     
-    <!-- Button to download archive of all uploaded files -->
+   <div class="grouped-actions">
+     <!-- Button to download archive of all uploaded files -->
       <form class="downloadUserData" action="#" method="POST">
         <button type="submit" name="downloadArchive" id="downloadArchive">
           <label for="downloadArchive">
@@ -142,6 +143,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </label>
         </button>
       </form>
+      <!-- Button to open modal -->
+      <button id="openModal">Réinitialiser le mot de passe</button>
+   </div>
     
     <!-- Modal to allow user to reset password -->
       <div id="modal" class="modal">
@@ -157,8 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
 
-      <!-- Button to open modal -->
-      <button id="openModal">Réinitialiser le mot de passe</button>
+      
 
     </aside>
 

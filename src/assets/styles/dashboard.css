@@ -44,20 +44,8 @@
 .user-cpu-usage,
 .user-cpu-system,
 .user-cpu-idle {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: 400;
-}
-
-.user-total-memory,
-.user-free-memory,
-.user-available-memory {
-  margin-bottom: 1rem;
-}
-
-.user-cpu-usage,
-.user-cpu-system,
-.user-cpu-idle {
-  margin-top: 1rem;
 }
 
 #openModal {
@@ -66,10 +54,14 @@
   outline: none;
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   padding: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+#openModal:hover {
+  background: red;
+  color: white;
 }
 
 #files-n-folder {
@@ -146,6 +138,15 @@
   transform: scale(1.05);
 }
 
+.grouped-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 65%;
+  height: 50%;
+}
+
 .downloadUserData {
   display: flex;
   flex-direction: column;
@@ -167,7 +168,6 @@
   outline: none;
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   padding: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
